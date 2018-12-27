@@ -5,7 +5,7 @@ public class User {
     public String userName;
     private String password;
     private Boolean isAdmin;
-    public int money;
+    public double money;
 
     public User (String userName, String password, Boolean isAdmin, int money){
         //this.idUser = idUser;
@@ -39,11 +39,11 @@ public class User {
         isAdmin = admin;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 }

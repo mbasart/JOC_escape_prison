@@ -50,4 +50,23 @@ public class UserImpl implements IUser {
         return userID;
     }
 
+    public User getUser(int iduser) {
+        Session session = null;
+        User user = null;
+        try {
+            session = FactorySession.openSession();
+            user = (User)session.get(new User("","",false,0), iduser);
+            log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Boolean.toString(user.getIsAdmin()));
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al obtenir un employee");
+        }
+        finally {
+            session.close();
+        }
+
+        return user;
+    }
+
 }

@@ -36,6 +36,10 @@ public class ObjectHelper {
             setter = theClass.getMethod(gMethod,String.class);
         } else if(value.getClass()==Double.class){
             setter = theClass.getMethod(gMethod,double.class);
+        } else if(value.getClass()==int.class){
+            setter = theClass.getMethod(gMethod,int.class);
+        } else if(value.getClass()==Boolean.class){
+            setter = theClass.getMethod(gMethod,Boolean.class);
         }
 
         try{

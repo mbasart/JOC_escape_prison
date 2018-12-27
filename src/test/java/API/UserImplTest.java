@@ -10,8 +10,15 @@ public class UserImplTest {
     @Test
     public void addUserDB(){
         this.user = UserImpl.getInstance();
-        this.user.addUser("Meritxell", "holahola",false,500);
+        //this.user.addUser("Meritxell", "holahola",false,500);
+        this.user.addUser("Noelia", "holahola22",true,400);
         this.user.clear();
+    }
+
+    @Test
+    public void selectUserDB(){
+        this.user = UserImpl.getInstance();
+        this.user.getUser(4);
     }
 
 }
