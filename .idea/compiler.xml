@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JOC_escape_prison" target="1.5" />
+      <module name="JOC_escape_prison" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

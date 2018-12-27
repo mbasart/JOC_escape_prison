@@ -1,12 +1,17 @@
-package API;
+package API.implement;
 
+import API.interfaces.IUser;
 import API.model.User;
 import DAO.FactorySession;
 import DAO.Session;
 import org.apache.log4j.Logger;
 
 public class UserImpl implements IUser {
-    private static IUser instance;
+
+    private static UserImpl instance;
+
+    //mostra informacio amb log4j
+    final Logger log = Logger.getLogger(UserImpl.class);
 
     private UserImpl(){
 
@@ -23,8 +28,7 @@ public class UserImpl implements IUser {
         instance = new UserImpl();
     }
 
-    //mostra informacio amb log4j
-    final Logger log = Logger.getLogger(UserImpl.class);
+
 
     public int addUser(String userName, String password, Boolean isAdmin, int money) {
         Session session = null;
@@ -45,4 +49,5 @@ public class UserImpl implements IUser {
 
         return userID;
     }
+
 }

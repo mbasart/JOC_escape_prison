@@ -1,8 +1,8 @@
 package API;
 
+import API.implement.UserImpl;
+import API.interfaces.IUser;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class UserImplTest {
     IUser user;
