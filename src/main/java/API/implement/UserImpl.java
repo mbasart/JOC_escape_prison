@@ -30,12 +30,12 @@ public class UserImpl implements IUser {
 
 
 
-    public int addUser(String userName, String password, int isAdmin, int money) {
+    public int addUser(String userName, String password, int isAdmin, int money, int isBanned) {
         Session session = null;
         int userID = 0;
         try {
             session = FactorySession.openSession();
-            User user = new User(userName, password, isAdmin, money);
+            User user = new User(userName, password, isAdmin, money, isBanned);
             session.save(user);
             log.info("name: " + userName + "surname: " + password); //per veure si el employee esta be
         }
@@ -55,8 +55,8 @@ public class UserImpl implements IUser {
         User user = null;
         try {
             session = FactorySession.openSession();
-            user = (User)session.get(new User("","",0,0), iduser);
-            log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Integer.toString(user.getIsAdmin()));
+            user = (User)session.get(new User("","",0,0,0), iduser);
+            log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Integer.toString(user.getIsAdmin())+" Banned: "+Integer.toString(user.getIsBanned()));
         }
         catch (Exception e) {
             // LOG

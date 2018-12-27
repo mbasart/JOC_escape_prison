@@ -6,13 +6,15 @@ public class User {
     private String password;
     private int isAdmin;
     public double money;
+    public int isBanned;
 
-    public User (String userName, String password, int isAdmin, int money){
+    public User (String userName, String password, int isAdmin, int money,int isBanned){
         //this.idUser = idUser;
         this.userName = userName;
         this.password = password;
         this.isAdmin = isAdmin;
         this.money = money;
+        this.isBanned = isBanned;
     }
 
     public String getUserName() {
@@ -45,5 +47,13 @@ public class User {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public int getIsBanned() {
+        return isBanned;
+    }
+
+    public void setIsBanned(int isBanned) {
+        this.isBanned = isBanned;
     }
 }
