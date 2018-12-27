@@ -10,7 +10,7 @@ public class QueryHelper {
 
         String [] fields = ObjectHelper.getFields(entity);
 
-        sb.append("iduser");
+        sb.append("id");
         for (String field: fields) {
             sb.append(", ").append(field);
         }
@@ -32,7 +32,7 @@ public class QueryHelper {
         System.out.println("entra a la funcio de SELECT."); //comentaris que poso de prova
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
-        sb.append(" WHERE iduser = ?");
+        sb.append(" WHERE id = ?");
 
         return sb.toString();
     }

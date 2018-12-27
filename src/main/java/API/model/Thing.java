@@ -3,24 +3,16 @@ package API.model;
 public class Thing {
 
 
-    public int idThing;
+    //public int idThing;
     public String thingName;
     public String function;
     public int initialPosition;
 
-    public Thing(int idThing, String thingName, String function, int initialPosition) {
-        this.idThing = idThing;
+    public Thing(String thingName, String function, int initialPosition) {
+        //this.idThing = idThing;
         this.thingName = thingName;
         this.function = function;
         this.initialPosition = initialPosition;
-    }
-
-    public int getIdThing() {
-        return idThing;
-    }
-
-    public void setIdThing(int idThing) {
-        this.idThing = idThing;
     }
 
     public String getThingName() {

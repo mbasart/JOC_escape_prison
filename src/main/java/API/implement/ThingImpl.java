@@ -1,6 +1,9 @@
 package API.implement;
 
 import API.interfaces.IThing;
+import API.model.Thing;
+import DAO.FactorySession;
+import DAO.Session;
 import org.apache.log4j.Logger;
 
 public class ThingImpl implements IThing {
@@ -23,5 +26,44 @@ public class ThingImpl implements IThing {
 
     public void clear(){
         instance = new ThingImpl();
+    }
+
+    public int addThing(String thingName, String function, int initialPosition) {
+        Session session = null;
+        int thingID = 0;
+        try {
+            session = FactorySession.openSession();
+            Thing user = new Thing(thingName, function, initialPosition);
+            session.save(user);
+            log.info("Thing Name: " + thingName + " Function: " + function); //per veure si el employee esta be
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al afegir un nou user");
+        }
+        finally {
+            session.close();
+        }
+
+        return thingID;
+    }
+
+    public Thing getThing(int idThing) {
+        Session session = null;
+        Thing thing = null;
+        try {
+            session = FactorySession.openSession();
+            thing = (Thing) session.get(new Thing("","",0), idThing);
+            log.info("Thing Name: "+ thing.getThingName() + " Function: "+thing.getFunction() + " Position: "+Double.toString(thing.getInitialPosition()));
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al obtenir un employee");
+        }
+        finally {
+            session.close();
+        }
+
+        return thing;
     }
 }
