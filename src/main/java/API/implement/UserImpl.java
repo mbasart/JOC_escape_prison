@@ -30,7 +30,7 @@ public class UserImpl implements IUser {
 
 
 
-    public int addUser(String userName, String password, Boolean isAdmin, int money) {
+    public int addUser(String userName, String password, int isAdmin, int money) {
         Session session = null;
         int userID = 0;
         try {
@@ -55,8 +55,8 @@ public class UserImpl implements IUser {
         User user = null;
         try {
             session = FactorySession.openSession();
-            user = (User)session.get(new User("","",false,0), iduser);
-            log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Boolean.toString(user.getIsAdmin()));
+            user = (User)session.get(new User("","",0,0), iduser);
+            log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Integer.toString(user.getIsAdmin()));
         }
         catch (Exception e) {
             // LOG

@@ -11,7 +11,7 @@ public class UserImplTest {
     public void addUserDB(){
         this.user = UserImpl.getInstance();
         //this.user.addUser("Meritxell", "holahola",false,500);
-        this.user.addUser("Noelia", "holahola22",true,400);
+        this.user.addUser("Noelia", "holahola22",1,400);
         this.user.clear();
     }
 

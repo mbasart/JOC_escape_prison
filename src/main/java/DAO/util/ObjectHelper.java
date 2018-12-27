@@ -1,5 +1,7 @@
 package DAO.util;
 
+import io.swagger.models.auth.In;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,7 +38,7 @@ public class ObjectHelper {
             setter = theClass.getMethod(gMethod,String.class);
         } else if(value.getClass()==Double.class){
             setter = theClass.getMethod(gMethod,double.class);
-        } else if(value.getClass()==int.class){
+        } else if(value.getClass()== Integer.class){
             setter = theClass.getMethod(gMethod,int.class);
         } else if(value.getClass()==Boolean.class){
             setter = theClass.getMethod(gMethod,Boolean.class);

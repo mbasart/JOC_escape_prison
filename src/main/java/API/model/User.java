@@ -4,10 +4,10 @@ public class User {
     //public int idUser;
     public String userName;
     private String password;
-    private Boolean isAdmin;
+    private int isAdmin;
     public double money;
 
-    public User (String userName, String password, Boolean isAdmin, int money){
+    public User (String userName, String password, int isAdmin, int money){
         //this.idUser = idUser;
         this.userName = userName;
         this.password = password;
@@ -31,12 +31,12 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getIsAdmin() {
+    public int getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(Boolean admin) {
-        isAdmin = admin;
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public double getMoney() {
