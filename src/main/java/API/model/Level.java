@@ -2,23 +2,14 @@ package API.model;
 
 public class Level {
 
-    public int numLevel;
+    //public int numLevel;
     public String map;
     public int playerPosition;
 
 
-    public Level(int numLevel, String map, int playerPosition) {
-        this.numLevel = numLevel;
+    public Level(String map, int playerPosition) {
         this.map = map;
         this.playerPosition = playerPosition;
-    }
-
-    public int getNumLevel() {
-        return numLevel;
-    }
-
-    public void setNumLevel(int numLevel) {
-        this.numLevel = numLevel;
     }
 
     public String getMap() {

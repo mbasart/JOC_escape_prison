@@ -33,13 +33,13 @@ public class ThingImpl implements IThing {
         int thingID = 0;
         try {
             session = FactorySession.openSession();
-            Thing user = new Thing(thingName, function, initialPosition);
-            session.save(user);
-            log.info("Thing Name: " + thingName + " Function: " + function); //per veure si el employee esta be
+            Thing thing = new Thing(thingName, function, initialPosition);
+            session.save(thing);
+            log.info("name: " + thingName + " Function: " + function + " Position: "+ Integer.toString(thing.getInitialPosition())); //per veure si el employee esta be
         }
         catch (Exception e) {
             // LOG
-            log.error("Error al afegir un nou user");
+            log.error("Error al afegir un nou employee");
         }
         finally {
             session.close();
