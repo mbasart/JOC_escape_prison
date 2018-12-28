@@ -2,32 +2,24 @@ package API.model;
 
 public class Game {
 
-    public int idGame;
-    public Boolean isCompleted;
+    //public int idGame;
+    public int isCompleted;
     public int gameLength;
     public int healthPoints;
 
-    public Game(int idGame, Boolean isCompleted, int gameLength, int healthPoints) {
-        this.idGame = idGame;
+    public Game(int isCompleted, int gameLength, int healthPoints) {
+        //this.idGame = idGame;
         this.isCompleted = isCompleted;
         this.gameLength = gameLength;
         this.healthPoints = healthPoints;
     }
 
-    public int getIdGame() {
-        return idGame;
-    }
-
-    public void setIdGame(int idGame) {
-        this.idGame = idGame;
-    }
-
-    public Boolean getCompleted() {
+    public int getIsCompleted() {
         return isCompleted;
     }
 
-    public void setCompleted(Boolean completed) {
-        isCompleted = completed;
+    public void setIsCompleted(int isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     public int getGameLength() {
