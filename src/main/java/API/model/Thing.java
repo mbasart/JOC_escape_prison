@@ -5,13 +5,13 @@ public class Thing {
 
     //public int idThing;
     public String thingName;
-    public String function;
+    public String use;
     public int initialPosition;
 
-    public Thing(String thingName, String function, int initialPosition) {
+    public Thing(String thingName, String use, int initialPosition) {
         //this.idThing = idThing;
         this.thingName = thingName;
-        this.function = function;
+        this.use = use;
         this.initialPosition = initialPosition;
     }
 
@@ -23,12 +23,12 @@ public class Thing {
         this.thingName = thingName;
     }
 
-    public String getFunction() {
-        return function;
+    public String getUse() {
+        return use;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setUse(String use) {
+        this.use = use;
     }
 
     public int getInitialPosition() {

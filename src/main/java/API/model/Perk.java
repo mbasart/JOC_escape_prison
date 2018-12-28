@@ -3,24 +3,16 @@ package API.model;
 public class Perk {
 
 
-    public int idPerk;
+    //public int idPerk;
     public String perkName;
-    public String function;
+    public String use;
     public int price;
 
-    public Perk(int idPerk, String perkName, String function, int price) {
-        this.idPerk = idPerk;
+    public Perk(String perkName, String use, int price) {
+        //this.idPerk = idPerk;
         this.perkName = perkName;
-        this.function = function;
+        this.use = use;
         this.price = price;
-    }
-
-    public int getIdPerk() {
-        return idPerk;
-    }
-
-    public void setIdPerk(int idPerk) {
-        this.idPerk = idPerk;
     }
 
     public String getPerkName() {
@@ -31,12 +23,12 @@ public class Perk {
         this.perkName = perkName;
     }
 
-    public String getFunction() {
-        return function;
+    public String getUse() {
+        return use;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setUse(String use) {
+        this.use = use;
     }
 
     public int getPrice() {

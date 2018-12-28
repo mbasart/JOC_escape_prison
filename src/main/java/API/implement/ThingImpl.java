@@ -28,14 +28,14 @@ public class ThingImpl implements IThing {
         instance = new ThingImpl();
     }
 
-    public int addThing(String thingName, String function, int initialPosition) {
+    public int addThing(String thingName, String use, int initialPosition) {
         Session session = null;
         int thingID = 0;
         try {
             session = FactorySession.openSession();
-            Thing thing = new Thing(thingName, function, initialPosition);
+            Thing thing = new Thing(thingName, use, initialPosition);
             session.save(thing);
-            log.info("name: " + thingName + " Function: " + function + " Position: "+ Integer.toString(thing.getInitialPosition())); //per veure si el employee esta be
+            log.info("name: " + thingName + " Function: " + use + " Position: "+ Integer.toString(thing.getInitialPosition())); //per veure si el employee esta be
         }
         catch (Exception e) {
             // LOG
@@ -54,7 +54,7 @@ public class ThingImpl implements IThing {
         try {
             session = FactorySession.openSession();
             thing = (Thing) session.get(new Thing("","",0), idThing);
-            log.info("Thing Name: "+ thing.getThingName() + " Function: "+thing.getFunction() + " Position: "+Double.toString(thing.getInitialPosition()));
+            log.info("Thing Name: "+ thing.getThingName() + " Function: "+thing.getUse() + " Position: "+Double.toString(thing.getInitialPosition()));
         }
         catch (Exception e) {
             // LOG
