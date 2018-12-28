@@ -3,26 +3,18 @@ package API.model;
 public class Enemies {
 
 
-    public int idEnemy;
+    //public int idEnemy;
     public String movementType;
     public int initialPosition;
     public int healthPoints;
     public int speed;
 
-    public Enemies(int idEnemy, String movementType, int initialPosition, int healthPoints, int speed) {
-        this.idEnemy = idEnemy;
+    public Enemies(String movementType, int initialPosition, int healthPoints, int speed) {
+        //this.idEnemy = idEnemy;
         this.movementType = movementType;
         this.initialPosition = initialPosition;
         this.healthPoints = healthPoints;
         this.speed = speed;
-    }
-
-    public int getIdEnemy() {
-        return idEnemy;
-    }
-
-    public void setIdEnemy(int idEnemy) {
-        this.idEnemy = idEnemy;
     }
 
     public String getMovementType() {
