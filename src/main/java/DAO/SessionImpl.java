@@ -98,4 +98,32 @@ public class SessionImpl implements Session {
 
         return o;
     }
+
+    public void update(Object object, int id){
+        String updateQuery = QueryHelper.createQueryUPDATE(object);
+
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = conn.prepareStatement(updateQuery);
+            int i = 1;
+
+            for(String field: ObjectHelper.getFields(object)){
+                pstm.setObject(i++, ObjectHelper.getter(object, field));
+            }
+
+            pstm.setObject(i,id);
+
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 }

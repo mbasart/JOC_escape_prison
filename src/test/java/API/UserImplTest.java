@@ -21,4 +21,10 @@ public class UserImplTest {
         this.user.getUser(1);
     }
 
+    @Test
+    public void updateUserDB(){
+        this.user = UserImpl.getInstance();
+        this.user.updateUser(6,"Patata2","hello1",0,300,0);
+    }
+
 }

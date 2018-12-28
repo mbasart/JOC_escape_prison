@@ -36,4 +36,23 @@ public class QueryHelper {
 
         return sb.toString();
     }
+
+    public static String createQueryUPDATE(Object entity){
+        System.out.println("Entra a la funcio de UPDATE.");
+        StringBuffer sb = new StringBuffer();
+        sb.append("UPDATE ").append(entity.getClass().getSimpleName()).append(" ").append("SET");
+
+        String [] fields = ObjectHelper.getFields(entity);
+
+        for(String field: fields){
+            sb.append(" ").append(field);
+            sb.append(" = ?,");
+        }
+        sb.delete(sb.length() -1, sb.length());
+
+        sb.append(" WHERE id = ?");
+
+        return sb.toString();
+    }
+
 }

@@ -69,4 +69,26 @@ public class UserImpl implements IUser {
         return user;
     }
 
+    public void updateUser(int iduser, String userName, String password, int isAdmin, int money, int isBanned) {
+        User user = this.getUser(iduser);
+        user.setUserName(userName);
+        user.setPassword(password);
+        user.setIsAdmin(isAdmin);
+        user.setMoney(money);
+        user.setIsBanned(isBanned);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(user, iduser);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un employee");
+        }
+        finally {
+            session.close();
+        }
+    }
+
 }
