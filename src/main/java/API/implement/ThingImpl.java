@@ -7,7 +7,6 @@ import DAO.Session;
 import org.apache.log4j.Logger;
 
 public class ThingImpl implements IThing {
-
     private static ThingImpl instance;
 
     //mostra informacio amb log4j
@@ -18,9 +17,8 @@ public class ThingImpl implements IThing {
     }
 
     public static IThing getInstance(){
-        if(instance == null){
+        if(instance == null)
             instance = new ThingImpl();
-        }
         return instance;
     }
 
@@ -28,14 +26,14 @@ public class ThingImpl implements IThing {
         instance = new ThingImpl();
     }
 
-    public int addThing(String thingName, String use, int initialPosition) {
+    public int addThing(String thingName, String useThing, int initialPosition) {
         Session session = null;
         int thingID = 0;
         try {
             session = FactorySession.openSession();
-            Thing thing = new Thing(thingName, use, initialPosition);
+            Thing thing = new Thing(thingName,useThing,initialPosition);
             session.save(thing);
-            log.info("name: " + thingName + " Function: " + use + " Position: "+ Integer.toString(thing.getInitialPosition())); //per veure si el employee esta be
+            log.info("name: " + thing.getThingName() + " Use: " + thing.getUseThing() + " Position: "+ Integer.toString(thing.getInitialPosition())); //per veure si el employee esta be
         }
         catch (Exception e) {
             // LOG
@@ -48,13 +46,13 @@ public class ThingImpl implements IThing {
         return thingID;
     }
 
-    public Thing getThing(int idThing) {
+    public Thing getThing(int thingID) {
         Session session = null;
         Thing thing = null;
         try {
             session = FactorySession.openSession();
-            thing = (Thing) session.get(new Thing("","",0), idThing);
-            log.info("Thing Name: "+ thing.getThingName() + " Function: "+thing.getUse() + " Position: "+Double.toString(thing.getInitialPosition()));
+            thing = (Thing) session.get(new Thing("","",0), thingID);
+            log.info("Employee: "+ thing.getThingName() + " Use: "+thing.getUseThing() + " Position: "+Integer.toString(thing.getInitialPosition()));
         }
         catch (Exception e) {
             // LOG

@@ -11,7 +11,14 @@ public class PerkImplTest {
     @Test
     public void addPerkDB(){
         this.perk = PerkImpl.getInstance();
-        this.perk.addPerk("mesVida","vida",25);
+        this.perk.addPerk("vida","mesVida",25);
+        this.perk.clear();
+    }
+
+    @Test
+    public void getPerkDB(){
+        this.perk = PerkImpl.getInstance();
+        this.perk.getPerk(1);
         this.perk.clear();
     }
 

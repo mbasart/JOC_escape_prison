@@ -2,16 +2,13 @@ package API.model;
 
 public class Thing {
 
-
-    //public int idThing;
     public String thingName;
-    public String use;
+    public String useThing;
     public int initialPosition;
 
-    public Thing(String thingName, String use, int initialPosition) {
-        //this.idThing = idThing;
+    public Thing (String thingName, String useThing, int initialPosition){
         this.thingName = thingName;
-        this.use = use;
+        this.useThing = useThing;
         this.initialPosition = initialPosition;
     }
 
@@ -23,12 +20,12 @@ public class Thing {
         this.thingName = thingName;
     }
 
-    public String getUse() {
-        return use;
+    public String getUseThing() {
+        return useThing;
     }
 
-    public void setUse(String use) {
-        this.use = use;
+    public void setUseThing(String useThing) {
+        this.useThing = useThing;
     }
 
     public int getInitialPosition() {

@@ -2,16 +2,13 @@ package API.model;
 
 public class Perk {
 
-
-    //public int idPerk;
     public String perkName;
-    public String use;
+    public String usePerk;
     public int price;
 
-    public Perk(String perkName, String use, int price) {
-        //this.idPerk = idPerk;
+    public Perk(String perkName, String usePerk, int price){
         this.perkName = perkName;
-        this.use = use;
+        this.usePerk = usePerk;
         this.price = price;
     }
 
@@ -23,12 +20,12 @@ public class Perk {
         this.perkName = perkName;
     }
 
-    public String getUse() {
-        return use;
+    public String getUsePerk() {
+        return usePerk;
     }
 
-    public void setUse(String use) {
-        this.use = use;
+    public void setUsePerk(String usePerk) {
+        this.usePerk = usePerk;
     }
 
     public int getPrice() {

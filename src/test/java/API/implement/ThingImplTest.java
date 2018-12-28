@@ -9,9 +9,16 @@ public class ThingImplTest {
     IThing thing;
 
     @Test
-    public void addThing(){
+    public void addThingDB(){
         this.thing = ThingImpl.getInstance();
-        this.thing.addThing("Navalla","punxar",3);
+        this.thing.addThing("navalla","punxar",25);
+        this.thing.clear();
+    }
+
+    @Test
+    public void getThingDB(){
+        this.thing = ThingImpl.getInstance();
+        this.thing.getThing(1);
         this.thing.clear();
     }
 

@@ -7,7 +7,6 @@ import DAO.Session;
 import org.apache.log4j.Logger;
 
 public class PerkImpl implements IPerk {
-
     private static PerkImpl instance;
 
     //mostra informacio amb log4j
@@ -18,9 +17,8 @@ public class PerkImpl implements IPerk {
     }
 
     public static IPerk getInstance(){
-        if(instance == null){
+        if(instance == null)
             instance = new PerkImpl();
-        }
         return instance;
     }
 
@@ -28,14 +26,14 @@ public class PerkImpl implements IPerk {
         instance = new PerkImpl();
     }
 
-    public int addPerk(String perkName, String use, int price) {
+    public int addPerk(String perkName, String usePerk, int price) {
         Session session = null;
         int perkID = 0;
         try {
             session = FactorySession.openSession();
-            Perk perk = new Perk(perkName,use,price);
+            Perk perk = new Perk(perkName,usePerk,price);
             session.save(perk);
-            log.info("name: " + perk.getPerkName() + " Function: " + perk.getUse() + " Price: "+ Integer.toString(perk.getPrice())); //per veure si el employee esta be
+            log.info("name: " + perk.getPerkName() + " Use: " + perk.getUsePerk() + " Price: "+ Integer.toString(perk.getPrice())); //per veure si el employee esta be
         }
         catch (Exception e) {
             // LOG
@@ -46,5 +44,24 @@ public class PerkImpl implements IPerk {
         }
 
         return perkID;
+    }
+
+    public Perk getPerk(int perkID) {
+        Session session = null;
+        Perk perk = null;
+        try {
+            session = FactorySession.openSession();
+            perk = (Perk)session.get(new Perk("","",0), perkID);
+            log.info("Name: "+ perk.getPerkName() + " Use: "+perk.getUsePerk() + " Price: "+Integer.toString(perk.getPrice()));
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al obtenir un employee");
+        }
+        finally {
+            session.close();
+        }
+
+        return perk;
     }
 }
