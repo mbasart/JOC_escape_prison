@@ -64,4 +64,24 @@ public class PerkImpl implements IPerk {
 
         return perk;
     }
+
+    public void updatePerk(int idPerk,String perkName, String usePerk, int price) {
+        Perk perk = this.getPerk(idPerk);
+        perk.setPerkName(perkName);
+        perk.setUsePerk(usePerk);
+        perk.setPrice(price);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(perk, idPerk);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un perk");
+        }
+        finally {
+            session.close();
+        }
+    }
 }

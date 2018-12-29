@@ -66,4 +66,25 @@ public class EnemiesImpl implements IEnemies {
 
         return enemies;
     }
+
+    public void updateEnemies(int idEnemies, String movementType, int initialPosition, int healthPoints, int speed) {
+        Enemies enemies = this.getEnemies(idEnemies);
+        enemies.setMovementType(movementType);
+        enemies.setInitialPosition(initialPosition);
+        enemies.setHealthPoints(healthPoints);
+        enemies.setSpeed(speed);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(enemies, idEnemies);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un enemy");
+        }
+        finally {
+            session.close();
+        }
+    }
 }

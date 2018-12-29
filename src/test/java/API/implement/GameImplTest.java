@@ -21,4 +21,11 @@ public class GameImplTest {
         this.game.getGame(2);
         this.game.clear();
     }
+
+    @Test
+    public void updateGameDB(){
+        this.game = GameImpl.getInstance();
+        this.game.updateGame(2,0,40,300);
+        this.game.clear();
+    }
 }

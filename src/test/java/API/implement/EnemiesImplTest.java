@@ -22,4 +22,10 @@ public class EnemiesImplTest {
         this.enemies.clear();
     }
 
+    @Test
+    public void updateEnemiesDB(){
+        this.enemies = EnemiesImpl.getInstance();
+        this.enemies.updateEnemies(2,"vertical",225,500,20);
+    }
+
 }

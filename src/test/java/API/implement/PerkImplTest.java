@@ -22,4 +22,11 @@ public class PerkImplTest {
         this.perk.clear();
     }
 
+    @Test
+    public void updatePerkDB(){
+        this.perk = PerkImpl.getInstance();
+        this.perk.updatePerk(1,"vida","mesVida",50);
+        this.perk.clear();
+    }
+
 }

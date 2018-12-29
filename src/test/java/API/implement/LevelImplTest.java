@@ -1,7 +1,7 @@
 package API.implement;
 
 import API.interfaces.ILevel;
-import API.model.Level;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,8 +20,15 @@ public class LevelImplTest {
     @Test
     public void getLevelDB(){
         this.level = LevelImpl.getInstance();
-        this.level.getLevel(2);
+        //this.level.getLevel(2);
+        Assert.assertEquals("numero1",this.level.getLevel(1).getMap());
         this.level.clear();
+    }
+
+    @Test
+    public void updateLevelDB(){
+        this.level = LevelImpl.getInstance();
+        this.level.updateLevel(1,"numero1",4);
     }
 
 }

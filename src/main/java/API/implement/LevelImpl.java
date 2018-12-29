@@ -66,4 +66,23 @@ public class LevelImpl implements ILevel {
 
         return level;
     }
+
+    public void updateLevel(int idLevel, String map, int playerPosition) {
+        Level level = this.getLevel(idLevel);
+        level.setMap(map);
+        level.setPlayerPosition(playerPosition);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(level, idLevel);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un level");
+        }
+        finally {
+            session.close();
+        }
+    }
 }

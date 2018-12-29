@@ -67,4 +67,24 @@ public class GameImpl implements IGame {
 
         return game;
     }
+
+    public void updateGame(int idGame, int isCompleted, int gameLength, int healthPoints) {
+        Game game = this.getGame(idGame);
+        game.setIsCompleted(isCompleted);
+        game.setGameLength(gameLength);
+        game.setHealthPoints(healthPoints);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(game, idGame);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un Game");
+        }
+        finally {
+            session.close();
+        }
+    }
 }
