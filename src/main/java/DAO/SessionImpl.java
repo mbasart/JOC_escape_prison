@@ -126,4 +126,21 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
     }
+
+    public void delete(Object object, int ID) {
+        String deleteQuery = QueryHelper.createQueryDELETE(object);
+
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = conn.prepareStatement(deleteQuery);
+            pstm.setObject(1, ID);
+
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -12,7 +12,7 @@ public class UserImplTest {
     public void addUserDB(){
         this.user = UserImpl.getInstance();
         //this.user.addUser("Meritxell", "holahola",false,500);
-        this.user.addUser("Patata3", "holahola22",1,400,1);
+        this.user.addUser("Patata2", "holahola22",1,400,1);
         this.user.clear();
     }
 
@@ -27,6 +27,13 @@ public class UserImplTest {
     public void updateUserDB(){
         this.user = UserImpl.getInstance();
         this.user.updateUser(6,"Patata2","hello1",0,300,0);
+    }
+
+    @Test
+    public void deleteUserDB(){
+        this.user = UserImpl.getInstance();
+        this.user.deleteUser(7);
+        this.user.clear();
     }
 
 }

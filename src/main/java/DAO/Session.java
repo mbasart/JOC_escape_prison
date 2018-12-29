@@ -5,4 +5,5 @@ public interface Session {
     void close();
     Object get(Object theClass, int ID);
     void update(Object object, int id);
+    void delete(Object object, int id);
 }

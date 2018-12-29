@@ -91,4 +91,21 @@ public class UserImpl implements IUser {
         }
     }
 
+    public void deleteUser(int iduser) {
+        User user = this.getUser(iduser);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(user,iduser);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar un employee");
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
 }
