@@ -84,4 +84,21 @@ public class ThingImpl implements IThing {
             session.close();
         }
     }
+
+    public void deleteThing(int idThing) {
+        Thing thing = this.getThing(idThing);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(thing,idThing);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar una thing");
+        }
+        finally {
+            session.close();
+        }
+
+    }
 }

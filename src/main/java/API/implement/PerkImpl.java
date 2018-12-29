@@ -84,4 +84,21 @@ public class PerkImpl implements IPerk {
             session.close();
         }
     }
+
+    public void deletePerk(int idPerk) {
+        Perk perk = this.getPerk(idPerk);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(perk,idPerk);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar un perk");
+        }
+        finally {
+            session.close();
+        }
+
+    }
 }

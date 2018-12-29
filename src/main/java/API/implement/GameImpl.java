@@ -87,4 +87,21 @@ public class GameImpl implements IGame {
             session.close();
         }
     }
+
+    public void deleteGame(int idGame) {
+        Game game = this.getGame(idGame);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(game,idGame);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar un game");
+        }
+        finally {
+            session.close();
+        }
+
+    }
 }

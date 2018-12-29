@@ -87,4 +87,21 @@ public class EnemiesImpl implements IEnemies {
             session.close();
         }
     }
+
+    public void deleteEnemies(int idEnemy) {
+        Enemies enemies = this.getEnemies(idEnemy);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(enemies,idEnemy);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar un enemy");
+        }
+        finally {
+            session.close();
+        }
+
+    }
 }

@@ -11,7 +11,7 @@ public class GameImplTest {
     @Test
     public void addGameDB(){
         this.game = GameImpl.getInstance();
-        this.game.addGame(0,30,400);
+        this.game.addGame(0,40,400);
         this.game.clear();
     }
 
@@ -26,6 +26,13 @@ public class GameImplTest {
     public void updateGameDB(){
         this.game = GameImpl.getInstance();
         this.game.updateGame(2,0,40,300);
+        this.game.clear();
+    }
+
+    @Test
+    public void deleteGameDB(){
+        this.game = GameImpl.getInstance();
+        this.game.deleteGame(2);
         this.game.clear();
     }
 }

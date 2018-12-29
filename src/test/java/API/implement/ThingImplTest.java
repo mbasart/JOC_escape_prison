@@ -11,7 +11,7 @@ public class ThingImplTest {
     @Test
     public void addThingDB(){
         this.thing = ThingImpl.getInstance();
-        this.thing.addThing("navalla","punxar",25);
+        this.thing.addThing("claus","obrir",4);
         this.thing.clear();
     }
 
@@ -28,5 +28,13 @@ public class ThingImplTest {
         this.thing.updateThing(1,"navalla","punxar",50);
         this.thing.clear();
     }
+
+    @Test
+    public void deleteThingDB(){
+        this.thing = ThingImpl.getInstance();
+        this.thing.deleteThing(2);
+        this.thing.clear();
+    }
+
 
 }

@@ -85,4 +85,21 @@ public class LevelImpl implements ILevel {
             session.close();
         }
     }
+
+    public void deleteLevel(int idLevel) {
+        Level level = this.getLevel(idLevel);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.delete(level,idLevel);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al borrar un level");
+        }
+        finally {
+            session.close();
+        }
+
+    }
 }

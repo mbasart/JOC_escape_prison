@@ -13,7 +13,7 @@ public class LevelImplTest {
     @Test
     public void addLevelDB(){
         this.level = LevelImpl.getInstance();
-        this.level.addLevel("numero2",10);
+        this.level.addLevel("numero3",15);
         this.level.clear();
     }
 
@@ -29,6 +29,12 @@ public class LevelImplTest {
     public void updateLevelDB(){
         this.level = LevelImpl.getInstance();
         this.level.updateLevel(1,"numero1",4);
+    }
+
+    @Test
+    public void deleteLevelDB(){
+        this.level = LevelImpl.getInstance();
+        this.level.deleteLevel(2);
     }
 
 }

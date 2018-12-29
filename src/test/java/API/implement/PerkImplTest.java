@@ -11,7 +11,7 @@ public class PerkImplTest {
     @Test
     public void addPerkDB(){
         this.perk = PerkImpl.getInstance();
-        this.perk.addPerk("vida","mesVida",25);
+        this.perk.addPerk("pocio","magia",15);
         this.perk.clear();
     }
 
@@ -26,6 +26,13 @@ public class PerkImplTest {
     public void updatePerkDB(){
         this.perk = PerkImpl.getInstance();
         this.perk.updatePerk(1,"vida","mesVida",50);
+        this.perk.clear();
+    }
+
+    @Test
+    public void deletePerkDB(){
+        this.perk = PerkImpl.getInstance();
+        this.perk.deletePerk(2);
         this.perk.clear();
     }
 

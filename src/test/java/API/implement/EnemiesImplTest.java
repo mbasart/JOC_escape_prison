@@ -11,7 +11,7 @@ public class EnemiesImplTest {
     @Test
     public void addEnemiesDB(){
         this.enemies = EnemiesImpl.getInstance();
-        this.enemies.addEnemies("vertical",225,500,35);
+        this.enemies.addEnemies("vertical",200,500,35);
         this.enemies.clear();
     }
 
@@ -26,6 +26,13 @@ public class EnemiesImplTest {
     public void updateEnemiesDB(){
         this.enemies = EnemiesImpl.getInstance();
         this.enemies.updateEnemies(2,"vertical",225,500,20);
+    }
+
+    @Test
+    public void deleteEnemiesDB(){
+        this.enemies = EnemiesImpl.getInstance();
+        this.enemies.deleteEnemies(2);
+        this.enemies.clear();
     }
 
 }
