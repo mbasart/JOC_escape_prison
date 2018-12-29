@@ -63,4 +63,11 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String findAllQuery(Object o) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(o.getClass().getSimpleName());
+
+        return sb.toString();
+    }
+
 }

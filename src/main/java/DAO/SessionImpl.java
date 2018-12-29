@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionImpl implements Session {
     //mostra informacio amb log4j
@@ -142,5 +144,51 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
 
+    }
+
+    public List<Object> findAll(Object o) {
+        Class theClass = o.getClass();
+        String findAllQuery = QueryHelper.findAllQuery(o);
+
+        Object entity = null;
+        List<Object> listOfObjects = new ArrayList<>();
+
+        try {
+            entity = theClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = conn.prepareStatement(findAllQuery);
+            rs = pstm.executeQuery();
+
+            while(rs.next()){
+                Field[] fields = theClass.getDeclaredFields();
+                rs.getString(1);
+                for (int i = 0; i<fields.length; i++){
+                    ObjectHelper.setter(o, fields[i].getName(), rs.getObject(i + 2));
+                }
+
+                listOfObjects.add(entity);
+
+                entity = theClass.newInstance();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }  catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e){
+            e.printStackTrace();
+        }
+
+        return listOfObjects;
     }
 }

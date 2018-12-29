@@ -6,6 +6,9 @@ import DAO.FactorySession;
 import DAO.Session;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserImpl implements IUser {
 
     private static UserImpl instance;
@@ -106,6 +109,25 @@ public class UserImpl implements IUser {
             session.close();
         }
 
+    }
+
+    public List<User> getUsers() {
+        Session session = null;
+        List<User> userList=new ArrayList<>();
+        User user = null;
+        try {
+            session = FactorySession.openSession();
+            //userList = (List<User>)session.findAll(new User("","",0,0,0));
+            //userList = session.findAll(new User("","",0,0,0)); //recorda arreglar aixo
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al obtenir la llista de employee");
+        }
+        finally {
+            session.close();
+        }
+        return userList;
     }
 
 }
