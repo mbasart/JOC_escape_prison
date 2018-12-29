@@ -22,4 +22,11 @@ public class ThingImplTest {
         this.thing.clear();
     }
 
+    @Test
+    public void updateThingDB(){
+        this.thing = ThingImpl.getInstance();
+        this.thing.updateThing(1,"navalla","punxar",50);
+        this.thing.clear();
+    }
+
 }

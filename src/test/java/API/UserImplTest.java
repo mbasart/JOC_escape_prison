@@ -2,6 +2,7 @@ package API;
 
 import API.implement.UserImpl;
 import API.interfaces.IUser;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class UserImplTest {
@@ -18,7 +19,8 @@ public class UserImplTest {
     @Test
     public void selectUserDB(){
         this.user = UserImpl.getInstance();
-        this.user.getUser(1);
+        //this.user.getUser(2);
+        Assert.assertEquals("Victor", this.user.getUser(2).getUserName());
     }
 
     @Test

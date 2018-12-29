@@ -64,4 +64,24 @@ public class ThingImpl implements IThing {
 
         return thing;
     }
+
+    public void updateThing(int idThing, String thingName, String useThing, int initialPosition) {
+        Thing thing = this.getThing(idThing);
+        thing.setThingName(thingName);
+        thing.setUseThing(useThing);
+        thing.setInitialPosition(initialPosition);
+
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(thing, idThing);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar una thing");
+        }
+        finally {
+            session.close();
+        }
+    }
 }

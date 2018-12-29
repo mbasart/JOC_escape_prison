@@ -5,6 +5,7 @@ import API.model.Thing;
 public interface IThing {
     public int addThing (String thingName, String useThing, int initialPosition);
     public Thing getThing(int thingID);
+    public void updateThing(int idThing, String thingName, String useThing, int initialPosition);
 
     void clear();
 }
