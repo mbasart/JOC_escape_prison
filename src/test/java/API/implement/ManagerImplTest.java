@@ -30,4 +30,26 @@ public class ManagerImplTest {
         this.manager.clear();
     }
 
+    @Test
+    public void loginDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals(true,this.manager.login("Meritxell", "holahola"));
+        Assert.assertEquals(true,this.manager.login("Joselito","1234"));
+        Assert.assertNotEquals(true,this.manager.login("aaaaaaa","nope"));
+        this.manager.clear();
+    }
+
+    @Test
+    public void registerDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals(false,this.manager.register("Meritxell","holahola"));
+        this.manager.clear();
+    }
+
+    @Test
+    public void bannedDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals(1,this.manager.banned("Joselito"));
+        this.manager.clear();
+    }
 }

@@ -191,4 +191,73 @@ public class SessionImpl implements Session {
 
         return listOfObjects;
     }
+
+    public Object login(Object o,String userName){
+
+        Class theClass = o.getClass();
+        String selectQuery = QueryHelper.createQueryLOGIN(o);
+        log.info(selectQuery);
+
+        PreparedStatement pstm = null;
+        ResultSet result = null;
+
+        try{
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(1, userName);
+
+            result = pstm.executeQuery();
+            log.info("Query executada satisfactoriament.");
+
+           while (result.next()) {
+                log.info("Guardem valors");
+                Field[] fields = theClass.getDeclaredFields();
+                result.getString(1);
+                for (int i = 0; i < fields.length; i++) {
+                    ResultSetMetaData rsmd = result.getMetaData();
+                    String name = rsmd.getColumnName(i + 2);
+                    log.info("The column name is: " + name);
+                    ObjectHelper.setter(o, name, result.getObject(i + 2));
+                    log.info("Valors guardats");
+                }
+           }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return o;
+        }catch (NoSuchMethodException e){
+            e.printStackTrace();
+            return o;
+        }
+
+        return o;
+    }
+
+    public void updateUserName(Object object, String userName){
+        String updateQuery = QueryHelper.createQueryUPDATEuserName(object);
+
+        PreparedStatement pstm = null;
+
+        try {
+            log.info("Entrem a la funcio del update pel userName");
+            pstm = conn.prepareStatement(updateQuery);
+            int i = 1;
+
+            for(String field: ObjectHelper.getFields(object)){
+                pstm.setObject(i++, ObjectHelper.getter(object, field));
+            }
+
+            pstm.setObject(i,userName);
+
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 }

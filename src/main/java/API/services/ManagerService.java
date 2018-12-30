@@ -1,4 +1,4 @@
-package API.services;
+/*package API.services;
 
 import API.implement.ManagerImpl;
 import API.interfaces.Manager;
@@ -63,4 +63,4 @@ public class ManagerService {
         return Response.status(201).build();
     }
 
-}
+}*/

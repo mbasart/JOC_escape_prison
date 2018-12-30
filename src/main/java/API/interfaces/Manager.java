@@ -20,4 +20,8 @@ public interface Manager {
 
     //public Level getLevel(int levelID);
     //public int addLevel (String map, int playerPosition);
+
+    Boolean login(String userName, String password);
+    Boolean register(String userName, String password);
+    int banned(String userName);
 }

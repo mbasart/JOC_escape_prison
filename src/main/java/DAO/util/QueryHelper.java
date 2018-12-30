@@ -70,4 +70,31 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQueryLOGIN(Object entity){
+        System.out.println("Entra a la funcio LOGIN");
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE userName = ?");
+
+        return sb.toString();
+    }
+
+    public static String createQueryUPDATEuserName(Object entity){
+        System.out.println("Entra a la funcio de UPDATE.");
+        StringBuffer sb = new StringBuffer();
+        sb.append("UPDATE ").append(entity.getClass().getSimpleName()).append(" ").append("SET");
+
+        String [] fields = ObjectHelper.getFields(entity);
+
+        for(String field: fields){
+            sb.append(" ").append(field);
+            sb.append(" = ?,");
+        }
+        sb.delete(sb.length() -1, sb.length());
+
+        sb.append(" WHERE userName = ?");
+
+        return sb.toString();
+    }
+
 }
