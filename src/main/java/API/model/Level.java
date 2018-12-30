@@ -12,6 +12,10 @@ public class Level {
         this.playerPosition = playerPosition;
     }
 
+    public Level(){
+
+    }
+
     public String getMap() {
         return map;
     }

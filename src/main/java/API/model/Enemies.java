@@ -17,6 +17,8 @@ public class Enemies {
         this.speed = speed;
     }
 
+    public Enemies(){}
+
     public String getMovementType() {
         return movementType;
     }

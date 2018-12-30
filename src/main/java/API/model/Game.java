@@ -14,6 +14,8 @@ public class Game {
         this.healthPoints = healthPoints;
     }
 
+    public Game(){}
+
     public int getIsCompleted() {
         return isCompleted;
     }

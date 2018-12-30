@@ -48,6 +48,8 @@
             <version>${swagger-jersey2-jaxrs.version}</version>
         </dependency>
 
+
+
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>

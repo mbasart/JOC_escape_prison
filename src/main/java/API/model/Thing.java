@@ -12,6 +12,8 @@ public class Thing {
         this.initialPosition = initialPosition;
     }
 
+    public Thing(){}
+
     public String getThingName() {
         return thingName;
     }

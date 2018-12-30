@@ -12,6 +12,8 @@ public class Perk {
         this.price = price;
     }
 
+    public Perk(){}
+
     public String getPerkName() {
         return perkName;
     }

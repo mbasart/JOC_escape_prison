@@ -17,6 +17,9 @@ public class User {
         this.isBanned = isBanned;
     }
 
+    public User() {
+    }
+
     public String getUserName() {
         return userName;
     }
