@@ -24,4 +24,5 @@ public interface Manager {
     int login(String userName, String password);
     Boolean register(String userName, String password);
     int banned(String userName);
+    int admin(String userName);
 }

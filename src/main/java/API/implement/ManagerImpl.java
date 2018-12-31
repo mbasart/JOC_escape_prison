@@ -105,10 +105,13 @@ public class ManagerImpl implements Manager {
             log.info("Funcio login");
             session = FactorySession.openSession();
             user = (User) session.login(new User("", "", 0, 0, 0), userName);
-            if (user.getIsBanned() == 1)
-                value = 1; //aixo vol dir que esta banned
-            else if (user.getPassword().equals(password))
+            if (user.getPassword().equals(password)) {
                 value = 2; //aixo vol dir que el usuari es correcte
+                if (user.getIsBanned() == 1)
+                    value = 1; //aixo vol dir que esta banned
+                else if(user.getIsAdmin() == 1)
+                    value = 3; //aixo vol dir que es admin
+            }
             else
                 value = 0; //aixo vol dir que el password o el nom es incorrecte
             //log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Integer.toString(user.getIsAdmin())+" Banned: "+Integer.toString(user.getIsBanned()));
@@ -196,5 +199,32 @@ public class ManagerImpl implements Manager {
         }
 
         return isBanned;
+    }
+
+    public int admin(String userName){
+        User user = this.getUserByName(userName);
+        user.setUserName(userName);
+        int isAdmin = 0;
+        if(user.getIsAdmin()== 0)
+            isAdmin = 1;
+        else if (user.getIsAdmin() == 1)
+            isAdmin = 0;
+        user.setIsAdmin(isAdmin);
+
+        Session session = null;
+        try {
+            log.info("admin user del manager");
+            session = FactorySession.openSession();
+            session.updateUserName(user, userName);
+        }
+        catch (Exception e) {
+            // LOG
+            log.error("Error al actualitzar un employee");
+        }
+        finally {
+            session.close();
+        }
+
+        return isAdmin;
     }
 }

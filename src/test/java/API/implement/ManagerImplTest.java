@@ -36,6 +36,7 @@ public class ManagerImplTest {
         Assert.assertEquals(2,this.manager.login("Meritxell", "holahola"));
         Assert.assertEquals(1,this.manager.login("Joselito","1234"));
         Assert.assertEquals(0,this.manager.login("Meritxell","hol"));
+        Assert.assertEquals(3,this.manager.login("Noelia","holahola22"));
         this.manager.clear();
     }
 
@@ -50,6 +51,13 @@ public class ManagerImplTest {
     public void bannedDB(){
         this.manager = ManagerImpl.getInstance();
         Assert.assertEquals(1,this.manager.banned("Joselito"));
+        this.manager.clear();
+    }
+
+    @Test
+    public void adminDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals(0,this.manager.admin("Meritxell"));
         this.manager.clear();
     }
 }

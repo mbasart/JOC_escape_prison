@@ -73,16 +73,19 @@ public class UserService {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "Password incorrect"),
-            @ApiResponse(code = 405, message = "User is banned")
+            @ApiResponse(code = 401, message = "User is banned"),
+            @ApiResponse(code = 200, message = "User is admin")
     })
     @Path("/login/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginUser(@PathParam("userName") String userName, String password){
         int encontrado = this.manager.login(userName, password);
         if(encontrado == 1)
-            return Response.status(405).build();
+            return Response.status(401).build();
         else if(encontrado == 0)
             return Response.status(404).build();
+        else if(encontrado == 3)
+            return Response.status(200).build();
         else
             return Response.status(201).build();
 
@@ -128,6 +131,24 @@ public class UserService {
         }catch (Exception e){
             return Response.status(404).build();
         }
+    }
+
+    @PATCH
+    @ApiOperation(value = "Admin",notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201,message = "Successful"),
+            @ApiResponse(code = 404,message = "Unsuccessful")
+    })
+    @Path("/admin/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response admin (@PathParam("userName") String userName){
+        int admin = this.manager.admin(userName);
+        if(admin == 0)
+            return Response.status(201).build();
+        else if(admin == 1)
+            return Response.status(201).build();
+        else
+            return Response.status(404).build();
     }
 
 }
