@@ -29,12 +29,12 @@ public class GameImpl implements IGame {
         instance = new GameImpl();
     }
 
-    public int addGame(int isCompleted, int gameLength, int healthPoints) {
+    public int addGame(int isCompleted, int gameLength, int healthPoints, String gameName) {
         Session session = null;
         int gameID = 0;
         try {
             session = FactorySession.openSession();
-            Game game = new Game(isCompleted,gameLength,healthPoints);
+            Game game = new Game(isCompleted,gameLength,healthPoints, gameName);
             session.save(game);
             log.info("Completed: " + Integer.toString(game.getIsCompleted()) + " GameLength: " + Integer.toString(game.getGameLength())+" Health:" + Integer.toString(game.getHealthPoints())); //per veure si el employee esta be
         }
@@ -54,7 +54,7 @@ public class GameImpl implements IGame {
         Game game = null;
         try {
             session = FactorySession.openSession();
-            game = (Game) session.get(new Game(0,0,0), gameID);
+            game = (Game) session.get(new Game(0,0,0,""), gameID);
             log.info("Completed: "+ Integer.toString(game.getIsCompleted()) + " Length: "+Integer.toString(game.getGameLength()) + " Health: "+Integer.toString(game.getHealthPoints()));
         }
         catch (Exception e) {
@@ -68,11 +68,12 @@ public class GameImpl implements IGame {
         return game;
     }
 
-    public void updateGame(int idGame, int isCompleted, int gameLength, int healthPoints) {
+    public void updateGame(int idGame, int isCompleted, int gameLength, int healthPoints, String gameName) {
         Game game = this.getGame(idGame);
         game.setIsCompleted(isCompleted);
         game.setGameLength(gameLength);
         game.setHealthPoints(healthPoints);
+        game.setNameGame(gameName);
 
         Session session = null;
         try {

@@ -1,6 +1,8 @@
 package API.implement;
 
 import API.interfaces.Manager;
+import API.model.Game;
+import API.model.RelationUserGame;
 import API.model.User;
 import DAO.FactorySession;
 import DAO.Session;
@@ -145,6 +147,26 @@ public class ManagerImpl implements Manager {
         return user;
     }
 
+    private Boolean checkUser(String userName){
+        Session session = null;
+        Boolean encontrado = false;
+        User user = null;
+        try{
+            log.info("funcio checkUser");
+            session = FactorySession.openSession();
+            user = (User)session.login(new User("","",0,0,0), userName);
+            if(user.getUserName().equals(userName))
+                encontrado = true;
+            else
+                encontrado = false;
+        }catch (Exception e){
+            log.error("Error al obtenir un user");
+        }finally {
+            session.close();
+        }
+        return encontrado;
+    }
+
     public Boolean register(String userName, String password){
         Boolean encontrado= false;
         if(this.login(userName,password)== 2)
@@ -226,5 +248,39 @@ public class ManagerImpl implements Manager {
         }
 
         return isAdmin;
+    }
+
+    public int newGame(String userName, String nameGame) {
+        Session session = null;
+        int success = 0;
+
+        int isCompleted = 0;
+        int gameLength = 0;
+        int healthPoints = 3;
+
+        if(this.checkUser(userName)== false)
+            success = 2;
+        else {
+
+            try {
+                session = FactorySession.openSession();
+                Game game = new Game(isCompleted, gameLength, healthPoints, nameGame);
+                session.save(game);
+                //log.info("Completed: " + Integer.toString(game.getIsCompleted()) + " GameLength: " + Integer.toString(game.getGameLength())+" Health:" + Integer.toString(game.getHealthPoints())); //per veure si el employee esta be
+
+                RelationUserGame relationusergame = new RelationUserGame(userName, nameGame);
+                session.save(relationusergame);
+
+                success = 1; // aixo vol dir que s'ha insertat el game satisfactoriament
+            } catch (Exception e) {
+                // LOG
+                log.error("Error al afegir un nou employee");
+                success = 2; //aixo vol dir que no s'ha insertat el game a la base de dades
+            } finally {
+                session.close();
+            }
+        }
+
+        return success;
     }
 }

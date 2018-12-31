@@ -30,6 +30,9 @@ public class ManagerImplTest {
         this.manager.clear();
     }
 
+
+    //Test de coses que fem servir despres
+
     @Test
     public void loginDB(){
         this.manager = ManagerImpl.getInstance();
@@ -58,6 +61,14 @@ public class ManagerImplTest {
     public void adminDB(){
         this.manager = ManagerImpl.getInstance();
         Assert.assertEquals(0,this.manager.admin("Meritxell"));
+        this.manager.clear();
+    }
+
+    @Test
+    public void newGameDB(){
+        this.manager = ManagerImpl.getInstance();
+        //Assert.assertEquals(1,this.manager.newGame("Meritxell","partida10"));
+        Assert.assertEquals(2,this.manager.newGame("Paula","partida11"));
         this.manager.clear();
     }
 }

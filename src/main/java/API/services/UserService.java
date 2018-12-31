@@ -71,23 +71,23 @@ public class UserService {
     @POST
     @ApiOperation(value = "Login", notes="asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404, message = "Password incorrect"),
-            @ApiResponse(code = 401, message = "User is banned"),
-            @ApiResponse(code = 200, message = "User is admin")
+            @ApiResponse(code = 2, message = "Successful"),
+            @ApiResponse(code = 0, message = "Password incorrect"),
+            @ApiResponse(code = 1, message = "User is banned"),
+            @ApiResponse(code = 3, message = "User is admin")
     })
     @Path("/login/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginUser(@PathParam("userName") String userName, String password){
         int encontrado = this.manager.login(userName, password);
         if(encontrado == 1)
-            return Response.status(401).build();
+            return Response.status(1).build();
         else if(encontrado == 0)
-            return Response.status(404).build();
+            return Response.status(0).build();
         else if(encontrado == 3)
-            return Response.status(200).build();
+            return Response.status(3).build();
         else
-            return Response.status(201).build();
+            return Response.status(2).build();
 
 
     }
@@ -95,9 +95,9 @@ public class UserService {
     @PUT
     @ApiOperation(value = "Register", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404,message = "User already exists"),
-            @ApiResponse(code = 405,message = "Qualsevol altre cosa")
+            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 2,message = "User already exists"),
+            @ApiResponse(code = 3,message = "Qualsevol altre error")
     })
     @Path("/register/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -105,11 +105,11 @@ public class UserService {
         try{
             Boolean encontrado = this.manager.register(userName,password);
             if(encontrado == true)
-                return Response.status(201).build();
+                return Response.status(1).build();
             else
-                return Response.status(404).build();
+                return Response.status(2).build();
         }catch(Exception e){
-            return Response.status(405).build();
+            return Response.status(3).build();
         }
     }
 

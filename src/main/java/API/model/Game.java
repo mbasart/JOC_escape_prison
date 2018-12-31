@@ -6,12 +6,14 @@ public class Game {
     public int isCompleted;
     public int gameLength;
     public int healthPoints;
+    public String nameGame;
 
-    public Game(int isCompleted, int gameLength, int healthPoints) {
+    public Game(int isCompleted, int gameLength, int healthPoints, String nameGame) {
         //this.idGame = idGame;
         this.isCompleted = isCompleted;
         this.gameLength = gameLength;
         this.healthPoints = healthPoints;
+        this.nameGame = nameGame;
     }
 
     public Game(){}
@@ -38,5 +40,13 @@ public class Game {
 
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
+    }
+
+    public String getNameGame() {
+        return nameGame;
+    }
+
+    public void setNameGame(String nameGame) {
+        this.nameGame = nameGame;
     }
 }
