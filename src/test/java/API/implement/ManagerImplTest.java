@@ -33,9 +33,9 @@ public class ManagerImplTest {
     @Test
     public void loginDB(){
         this.manager = ManagerImpl.getInstance();
-        Assert.assertEquals(true,this.manager.login("Meritxell", "holahola"));
-        Assert.assertEquals(true,this.manager.login("Joselito","1234"));
-        Assert.assertNotEquals(true,this.manager.login("aaaaaaa","nope"));
+        Assert.assertEquals(2,this.manager.login("Meritxell", "holahola"));
+        Assert.assertEquals(1,this.manager.login("Joselito","1234"));
+        Assert.assertEquals(0,this.manager.login("Meritxell","hol"));
         this.manager.clear();
     }
 

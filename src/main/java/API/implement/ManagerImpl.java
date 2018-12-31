@@ -95,29 +95,31 @@ public class ManagerImpl implements Manager {
 
     //A partir d'aqui funcions que es necessiten pel joc de veritat!!!!!!!!!!
 
-    public Boolean login(String userName, String password){
+    public int login(String userName, String password){
         Session session = null;
         //User user = null;
-        Boolean encontrado = false;
-        User user= null;
+        int value = 0;
+
+        User user = null;
         try {
             log.info("Funcio login");
             session = FactorySession.openSession();
-             user = (User)session.login(new User("","",0,0,0), userName);
-             if(user.getPassword().equals(password))
-                 encontrado = true;
-             else
-                 encontrado = false;
+            user = (User) session.login(new User("", "", 0, 0, 0), userName);
+            if (user.getIsBanned() == 1)
+                value = 1; //aixo vol dir que esta banned
+            else if (user.getPassword().equals(password))
+                value = 2; //aixo vol dir que el usuari es correcte
+            else
+                value = 0; //aixo vol dir que el password o el nom es incorrecte
             //log.info("Employee: "+ user.getUserName() + " Password: "+user.getPassword() + " Money: "+Double.toString(user.getMoney())+" Admin: "+Integer.toString(user.getIsAdmin())+" Banned: "+Integer.toString(user.getIsBanned()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             // LOG
             log.error("Error al obtenir un employee");
-        }
-        finally {
+        } finally {
             session.close();
         }
-        return encontrado;
+
+        return value;
     }
 
     private User getUserByName(String userName){
@@ -142,7 +144,9 @@ public class ManagerImpl implements Manager {
 
     public Boolean register(String userName, String password){
         Boolean encontrado= false;
-        if(this.login(userName,password)== true)
+        if(this.login(userName,password)== 2)
+            encontrado = false; //aixo vol dir que l'usuari ja existeix
+        else if(this.login(userName,password)==0)
             encontrado = false;
         else {
             Session session = null;
@@ -161,7 +165,7 @@ public class ManagerImpl implements Manager {
             } finally {
                 session.close();
             }
-            encontrado = true;
+            encontrado = true; //aixo vol dir que el usuari no existeix i s'ha registrat correctament
         }
 
         return encontrado;

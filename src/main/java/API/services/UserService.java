@@ -72,21 +72,20 @@ public class UserService {
     @ApiOperation(value = "Login", notes="asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404, message = "User not found")
+            @ApiResponse(code = 404, message = "Password incorrect"),
+            @ApiResponse(code = 405, message = "User is banned")
     })
     @Path("/login/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginUser(@PathParam("userName") String userName, String password){
-
-        try{
-            Boolean encontrado = this.manager.login(userName, password);
-            if(encontrado == true)
-                return Response.status(201).build();
-            else
-                return Response.status(404).build();
-        } catch (Exception e) {
+        int encontrado = this.manager.login(userName, password);
+        if(encontrado == 1)
+            return Response.status(405).build();
+        else if(encontrado == 0)
             return Response.status(404).build();
-        }
+        else
+            return Response.status(201).build();
+
 
     }
 
@@ -94,7 +93,8 @@ public class UserService {
     @ApiOperation(value = "Register", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404,message = "User already exists")
+            @ApiResponse(code = 404,message = "User already exists"),
+            @ApiResponse(code = 405,message = "Qualsevol altre cosa")
     })
     @Path("/register/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,15 +106,15 @@ public class UserService {
             else
                 return Response.status(404).build();
         }catch(Exception e){
-            return Response.status(404).build();
+            return Response.status(405).build();
         }
     }
 
     @PATCH
     @ApiOperation(value = "Banned",notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201,message = "Banned"),
-            @ApiResponse(code = 404,message = "Unbanned")
+            @ApiResponse(code = 201,message = "Successful"),
+            @ApiResponse(code = 404,message = "Ni banned ni unbanned")
     })
     @Path("/banned/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -124,7 +124,7 @@ public class UserService {
             if(banned == 1)
                 return Response.status(201).build();
             else
-                return Response.status(404).build();
+                return Response.status(201).build();
         }catch (Exception e){
             return Response.status(404).build();
         }
