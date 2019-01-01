@@ -106,4 +106,13 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQuerySearchGamesUser(Object entity){
+        System.out.println("Entra a la funcio search game user");
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE userName = ?");
+
+        return sb.toString();
+    }
+
 }

@@ -92,4 +92,13 @@ public class ManagerImplTest {
         Assert.assertEquals("PatataFregida",this.manager.loadAllUsers().get(9).getUserName());
         this.manager.clear();
     }
+
+    @Test
+    public void loadGamesOfUser(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals("partida5",this.manager.loadGamesOfUser("Meritxell").get(0).getNameGame());
+        Assert.assertEquals("partida4",this.manager.loadGamesOfUser("Meritxell").get(1).getNameGame());
+        Assert.assertEquals(3,this.manager.loadGamesOfUser("Meritxell").get(0).getHealthPoints());
+        this.manager.clear();
+    }
 }

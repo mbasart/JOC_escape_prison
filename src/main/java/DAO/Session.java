@@ -14,6 +14,7 @@ public interface Session {
 
     List<Game> findAllGames(Object o);
     List<User> findAllUsers(Object o);
+    List<String> findGamesUser(Object o, String userName);
 
     Object login(Object object, String userName);
     Object checkGame(Object o, String nameGame);

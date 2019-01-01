@@ -28,4 +28,5 @@ public interface Manager {
     int newGame(String userName, String nameGame);
     List<Game> loadAllGames();
     List<User> loadAllUsers();
+    List<Game> loadGamesOfUser (String userName);
 }

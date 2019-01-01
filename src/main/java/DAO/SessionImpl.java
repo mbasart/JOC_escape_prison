@@ -200,6 +200,33 @@ public class SessionImpl implements Session {
         return listOfUsers;
     }
 
+    public List<String> findGamesUser(Object o, String userName){
+        Class theClass = o.getClass();
+        String findGamesQuery = QueryHelper.createQuerySearchGamesUser(o);
+
+        List<String> listOfGames = new ArrayList<>();
+
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+
+        try{
+            pstm = conn.prepareStatement(findGamesQuery);
+            pstm.setObject(1,userName);
+            rs =pstm.executeQuery();
+
+            while (rs.next()){
+                String gameName = rs.getString(3);
+                listOfGames.add(gameName);
+                gameName = null;
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return listOfGames;
+    }
+
     public Object login(Object o,String userName){
 
         Class theClass = o.getClass();

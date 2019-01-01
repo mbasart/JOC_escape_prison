@@ -355,4 +355,31 @@ public class ManagerImpl implements Manager {
         }
         return userList;
     }
+
+    public List<Game> loadGamesOfUser (String userName){
+        Session session = null;
+        List<Game> gameList = new ArrayList<>();
+        Game game = null;
+
+        List<String> gamesUser = new ArrayList<>();
+
+        try{
+            session = FactorySession.openSession();
+
+            gamesUser = session.findGamesUser(new RelationUserGame("",""),userName);
+
+            for (int i = 0;gamesUser.size() > i ; i++){
+                log.info(gamesUser.get(i));
+                game = (Game)session.checkGame(new Game(0,0,0,""),gamesUser.get(i));
+                gameList.add(game);
+            }
+
+        }catch (Exception e){
+            log.error("Error al obtenir la llista de games de un jugador");
+        }finally {
+            session.close();
+        }
+
+        return gameList;
+    }
 }

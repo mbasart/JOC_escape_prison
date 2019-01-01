@@ -93,4 +93,25 @@ public class GameService {
             return Response.status(3).build();
         }
     }
+
+    @GET
+    @ApiOperation(value = "obtain a list of games of a specific user", notes = "asdasd",response = Game.class,responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 1,message = "Succesful"),
+            @ApiResponse(code = 2,message = "No hi ha games"),
+            @ApiResponse(code = 3,message = "Error")
+    })
+    @Path("/gameList/{userName}")
+    public Response llistaGamesUser(@PathParam("userName") String userName){
+        List<Game> gamesUser = this.manager.loadGamesOfUser(userName);
+        String json = new Gson().toJson(gamesUser);
+        try{
+            if(gamesUser.size()>0)
+                return Response.status(1).entity(json).build();
+            else
+                return Response.status(2).build();
+        }catch (Exception e) {
+            return Response.status(3).build();
+        }
+    }
 }
