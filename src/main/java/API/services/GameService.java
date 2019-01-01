@@ -4,11 +4,13 @@ package API.services;
 import API.implement.*;
 import API.interfaces.*;
 import API.model.Game;
+import com.google.gson.Gson;
 import io.swagger.annotations.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/game", description = "Endpoint to Game Service")
 @Path("/")
@@ -64,5 +66,28 @@ public class GameService {
             return Response.status(1).build();
         else
             return Response.status(2).build();
+    }
+
+    @POST
+    @ApiOperation(value = "obtain all list of games", notes = "asdasd",response = Game.class, responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 3,message = "Error")
+    })
+    @Path("/loadAllGames")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response loadAllGames (){
+
+        List<Game> allGames = this.manager.loadAllGames();
+        String json = new Gson().toJson(allGames);
+        try {
+            if (allGames.size() > 0)
+                return Response.status(1).entity(json).build();
+            else
+                return Response.status(2).build();
+        }catch (Exception e){
+            return Response.status(3).build();
+        }
     }
 }

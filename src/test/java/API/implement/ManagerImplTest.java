@@ -4,8 +4,6 @@ import API.interfaces.Manager;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ManagerImplTest {
     Manager manager;
 
@@ -69,6 +67,18 @@ public class ManagerImplTest {
         this.manager = ManagerImpl.getInstance();
         //Assert.assertEquals(1,this.manager.newGame("Meritxell","partida10"));
         Assert.assertEquals(2,this.manager.newGame("Paula","partida11"));
+        this.manager.clear();
+    }
+
+    @Test
+    public void loadGameDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals("partida1",this.manager.loadAllGames().get(0).getNameGame());
+        Assert.assertEquals("partida2",this.manager.loadAllGames().get(1).getNameGame());
+        Assert.assertEquals("partida3",this.manager.loadAllGames().get(2).getNameGame());
+        Assert.assertEquals("partida4",this.manager.loadAllGames().get(3).getNameGame());
+        Assert.assertEquals("partida5",this.manager.loadAllGames().get(4).getNameGame());
+        Assert.assertEquals("game1",this.manager.loadAllGames().get(5).getNameGame());
         this.manager.clear();
     }
 }

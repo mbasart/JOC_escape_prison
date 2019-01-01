@@ -26,13 +26,13 @@ public class ObjectHelper {
 
     public static void setter(Object object, String property, Object value) throws NoSuchMethodException {
         // Method // invoke
-        System.out.println("Entra a la funcio setter.");
+        //System.out.println("Entra a la funcio setter.");
         Object ret = null;
         Class theClass = object.getClass();
 
         //Method[] methodList = theClass.getMethods();
         String gMethod = "set"+ property.substring(0,1).toUpperCase()+property.substring(1);
-        System.out.println("metode> " + gMethod);
+        //System.out.println("metode> " + gMethod);
         Method setter = null;
         if(value.getClass()==String.class){
             setter = theClass.getMethod(gMethod,String.class);

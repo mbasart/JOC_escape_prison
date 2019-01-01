@@ -26,4 +26,5 @@ public interface Manager {
     int banned(String userName);
     int admin(String userName);
     int newGame(String userName, String nameGame);
+    List<Game> loadAllGames();
 }

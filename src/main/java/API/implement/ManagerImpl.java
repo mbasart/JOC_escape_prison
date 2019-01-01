@@ -6,9 +6,14 @@ import API.model.RelationUserGame;
 import API.model.User;
 import DAO.FactorySession;
 import DAO.Session;
+import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class ManagerImpl implements Manager {
     private static ManagerImpl instance;
@@ -127,6 +132,7 @@ public class ManagerImpl implements Manager {
         return value;
     }
 
+    //obte un usari a partir del nom d'un usuari
     private User getUserByName(String userName){
         Session session = null;
         Boolean encontrado = false;
@@ -147,6 +153,7 @@ public class ManagerImpl implements Manager {
         return user;
     }
 
+    //comprova si un usuari esta a la taula d'usuaris
     private Boolean checkUser(String userName){
         Session session = null;
         Boolean encontrado = false;
@@ -282,5 +289,27 @@ public class ManagerImpl implements Manager {
         }
 
         return success;
+    }
+
+    public List<Game> loadAllGames(){
+
+        Session session = null;
+        List<Game> gameList = new ArrayList<>();
+        Game game = null;
+
+
+        try {
+            session = FactorySession.openSession();
+
+            gameList = session.findAllGames(new Game(0, 0, 0, ""));
+
+
+        }catch (Exception e){
+            log.error("Error al obtenir la llistade games");
+        } finally {
+            session.close();
+        }
+
+        return gameList;
     }
 }

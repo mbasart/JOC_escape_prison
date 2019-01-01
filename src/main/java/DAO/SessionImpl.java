@@ -1,5 +1,6 @@
 package DAO;
 
+import API.model.Game;
 import DAO.util.ObjectHelper;
 import DAO.util.QueryHelper;
 import org.apache.log4j.Logger;
@@ -146,20 +147,12 @@ public class SessionImpl implements Session {
 
     }
 
-    public List<Object> findAll(Object o) {
+    public List<Game> findAllGames(Object o) {
         Class theClass = o.getClass();
         String findAllQuery = QueryHelper.findAllQuery(o);
 
-        Object entity = null;
-        List<Object> listOfObjects = new ArrayList<>();
+        List<Game> listOfGames = new ArrayList<>();
 
-        try {
-            entity = theClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
         ResultSet rs = null;
         PreparedStatement pstm = null;
 
@@ -167,29 +160,18 @@ public class SessionImpl implements Session {
             pstm = conn.prepareStatement(findAllQuery);
             rs = pstm.executeQuery();
 
-            while(rs.next()){
-                Field[] fields = theClass.getDeclaredFields();
-                rs.getString(1);
-                for (int i = 0; i<fields.length; i++){
-                    ObjectHelper.setter(o, fields[i].getName(), rs.getObject(i + 2));
-                }
+            while (rs.next()){
 
-                listOfObjects.add(entity);
+                Game game = new Game(rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getString(5));
+                listOfGames.add(game);
+                game = null;
 
-                entity = theClass.newInstance();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }  catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e){
-            e.printStackTrace();
         }
-
-        return listOfObjects;
+        return listOfGames;
     }
 
     public Object login(Object o,String userName){
