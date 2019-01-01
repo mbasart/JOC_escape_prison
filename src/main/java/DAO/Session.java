@@ -1,6 +1,7 @@
 package DAO;
 
 import API.model.Game;
+import API.model.User;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public interface Session {
     void update(Object object, int id);
     void delete(Object object, int id);
     List<Game> findAllGames(Object o);
+    List<User> findAllUsers(Object o);
 
     Object login(Object object, String userName);
     void updateUserName(Object object, String userName);

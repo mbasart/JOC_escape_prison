@@ -312,4 +312,22 @@ public class ManagerImpl implements Manager {
 
         return gameList;
     }
+
+    public List<User> loadAllUsers(){
+
+        Session session = null;
+        List<User> userList = new ArrayList<>();
+        User user = null;
+
+        try{
+            session = FactorySession.openSession();
+
+            userList = session.findAllUsers(new User("","",0,0,0));
+        }catch (Exception e){
+            log.error("Error al obtenir la llista de users");
+        }finally {
+            session.close();
+        }
+        return userList;
+    }
 }

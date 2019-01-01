@@ -68,8 +68,8 @@ public class GameService {
             return Response.status(2).build();
     }
 
-    @POST
-    @ApiOperation(value = "obtain all list of games", notes = "asdasd",response = Game.class, responseContainer = "List")
+    @GET
+    @ApiOperation(value = "obtain a list of games", notes = "asdasd",response = Game.class, responseContainer = "List")
     @ApiResponses(value = {
             @ApiResponse(code = 1, message = "Successful"),
             @ApiResponse(code = 2, message = "Empty"),

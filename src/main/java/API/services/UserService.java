@@ -4,6 +4,7 @@ package API.services;
 import API.implement.*;
 import API.interfaces.*;
 import API.model.*;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,6 +14,7 @@ import io.swagger.jaxrs.PATCH;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api(value = "/user", description = "Endpoint to Service Service")
 @Path("/")
@@ -149,6 +151,29 @@ public class UserService {
             return Response.status(201).build();
         else
             return Response.status(404).build();
+    }
+
+    @GET
+    @ApiOperation(value = "obtain a list of users", notes = "asdasd",response = User.class, responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 3,message = "Error")
+    })
+    @Path("/loadAllUsers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response loadAllUsers (){
+
+        List<User> allUsers = this.manager.loadAllUsers();
+        String json = new Gson().toJson(allUsers);
+        try {
+            if (allUsers.size() > 0)
+                return Response.status(1).entity(json).build();
+            else
+                return Response.status(2).build();
+        }catch (Exception e){
+            return Response.status(3).build();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package DAO;
 
 import API.model.Game;
+import API.model.User;
 import DAO.util.ObjectHelper;
 import DAO.util.QueryHelper;
 import org.apache.log4j.Logger;
@@ -172,6 +173,31 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
         return listOfGames;
+    }
+
+    public List<User> findAllUsers(Object o){
+        Class theClass = o.getClass();
+        String findAllQuery = QueryHelper.findAllQuery(o);
+
+        List<User> listOfUsers = new ArrayList<>();
+
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+
+        try{
+            pstm = conn.prepareStatement(findAllQuery);
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                User user = new User(rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5), rs.getInt(6));
+                listOfUsers.add(user);
+                user = null;
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return listOfUsers;
     }
 
     public Object login(Object o,String userName){

@@ -81,4 +81,14 @@ public class ManagerImplTest {
         Assert.assertEquals("game1",this.manager.loadAllGames().get(5).getNameGame());
         this.manager.clear();
     }
+
+    @Test
+    public void loadUserDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals("Meritxell",this.manager.loadAllUsers().get(0).getUserName());
+        Assert.assertEquals("Victor",this.manager.loadAllUsers().get(1).getUserName());
+        Assert.assertEquals("Sergi",this.manager.loadAllUsers().get(2).getUserName());
+        Assert.assertEquals("PatataFregida",this.manager.loadAllUsers().get(9).getUserName());
+        this.manager.clear();
+    }
 }
