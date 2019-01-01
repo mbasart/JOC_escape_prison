@@ -240,6 +240,45 @@ public class SessionImpl implements Session {
         return o;
     }
 
+    public Object checkGame(Object o, String nameGame){
+        Class theClass = o.getClass();
+        String selectQuery = QueryHelper.createQueryCheckGame(o);
+        log.info(selectQuery);
+
+        PreparedStatement pstm = null;
+        ResultSet result = null;
+
+        try{
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(1, nameGame);
+
+            result = pstm.executeQuery();
+            log.info("Query executada satisfactoriament.");
+
+            while (result.next()){
+                log.info("Guardem valors");
+                Field[] fields = theClass.getDeclaredFields();
+                result.getString(1);
+
+                for(int i=0;i<fields.length;i++){
+                    ResultSetMetaData rsmd = result.getMetaData();
+                    String name = rsmd.getColumnName(i + 2);
+                    log.info("The column name is: " + name);
+                    ObjectHelper.setter(o, name, result.getObject(i + 2));
+                    log.info("Valors guardats correctament");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            return o;
+        }catch (NoSuchMethodException e){
+            e.printStackTrace();
+            return o;
+        }
+
+        return o;
+    }
+
     public void updateUserName(Object object, String userName){
         String updateQuery = QueryHelper.createQueryUPDATEuserName(object);
 

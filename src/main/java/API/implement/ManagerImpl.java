@@ -101,6 +101,7 @@ public class ManagerImpl implements Manager {
     }
 
     //A partir d'aqui funcions que es necessiten pel joc de veritat!!!!!!!!!!
+    //***************************************************************************************************************
 
     public int login(String userName, String password){
         Session session = null;
@@ -163,11 +164,32 @@ public class ManagerImpl implements Manager {
             session = FactorySession.openSession();
             user = (User)session.login(new User("","",0,0,0), userName);
             if(user.getUserName().equals(userName))
-                encontrado = true;
+                encontrado = true; //vol dir que l'usuari existeix
             else
-                encontrado = false;
+                encontrado = false; //vol dir que l'usuari NO existeix
         }catch (Exception e){
             log.error("Error al obtenir un user");
+        }finally {
+            session.close();
+        }
+        return encontrado;
+    }
+
+    //comprova si un game esta a la taula de games
+    private Boolean checkGame(String nameGame){
+        Session session = null;
+        Boolean encontrado = false;
+        Game game = null;
+        try{
+            log.info("funcio checkGame");
+            session = FactorySession.openSession();
+            game = (Game)session.checkGame(new Game(0,0,0,""),nameGame);
+            if(game.getNameGame().equals(nameGame))
+                encontrado = true; //aixo vol dir que ja existeix
+            else
+                encontrado = false; //aixo vol dir que no s'ha trobat i per tant no existeix
+        }catch (Exception e){
+            log.error("Error al obtenir un game");
         }finally {
             session.close();
         }
@@ -266,25 +288,28 @@ public class ManagerImpl implements Manager {
         int healthPoints = 3;
 
         if(this.checkUser(userName)== false)
-            success = 2;
+            success = 2; //no s'ha insertat a la base de dades perque el user no existeix
         else {
+            if(this.checkGame(nameGame)== true)
+                success = 3; //ja existeix aquest nom i per tant no el pot fer servir
+            else {
+                try {
+                    session = FactorySession.openSession();
+                    Game game = new Game(isCompleted, gameLength, healthPoints, nameGame);
+                    session.save(game);
+                    //log.info("Completed: " + Integer.toString(game.getIsCompleted()) + " GameLength: " + Integer.toString(game.getGameLength())+" Health:" + Integer.toString(game.getHealthPoints())); //per veure si el employee esta be
 
-            try {
-                session = FactorySession.openSession();
-                Game game = new Game(isCompleted, gameLength, healthPoints, nameGame);
-                session.save(game);
-                //log.info("Completed: " + Integer.toString(game.getIsCompleted()) + " GameLength: " + Integer.toString(game.getGameLength())+" Health:" + Integer.toString(game.getHealthPoints())); //per veure si el employee esta be
+                    RelationUserGame relationusergame = new RelationUserGame(userName, nameGame);
+                    session.save(relationusergame);
 
-                RelationUserGame relationusergame = new RelationUserGame(userName, nameGame);
-                session.save(relationusergame);
-
-                success = 1; // aixo vol dir que s'ha insertat el game satisfactoriament
-            } catch (Exception e) {
-                // LOG
-                log.error("Error al afegir un nou employee");
-                success = 2; //aixo vol dir que no s'ha insertat el game a la base de dades
-            } finally {
-                session.close();
+                    success = 1; // aixo vol dir que s'ha insertat el game satisfactoriament
+                } catch (Exception e) {
+                    // LOG
+                    log.error("Error al afegir un nou employee");
+                    success = 2; //aixo vol dir que no s'ha insertat el game a la base de dades
+                } finally {
+                    session.close();
+                }
             }
         }
 

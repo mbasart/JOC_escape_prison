@@ -66,7 +66,8 @@ public class ManagerImplTest {
     public void newGameDB(){
         this.manager = ManagerImpl.getInstance();
         //Assert.assertEquals(1,this.manager.newGame("Meritxell","partida10"));
-        Assert.assertEquals(2,this.manager.newGame("Paula","partida11"));
+        //Assert.assertEquals(2,this.manager.newGame("Paula","partida11"));
+        Assert.assertEquals(3, this.manager.newGame("Meritxell","partida5"));
         this.manager.clear();
     }
 

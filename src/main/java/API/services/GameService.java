@@ -56,6 +56,7 @@ public class GameService {
     @ApiOperation(value = "create a new Game", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 3, message = "Aquest nom pel game ja existeix"),
             @ApiResponse(code = 2, message = "Error")
     })
     @Path("/newGame/{userName}/{gameName}")
@@ -64,6 +65,8 @@ public class GameService {
         int value = this.manager.newGame(userName,gameName);
         if(value == 1)
             return Response.status(1).build();
+        else if(value == 3)
+            return Response.status(3).build();
         else
             return Response.status(2).build();
     }
@@ -75,9 +78,9 @@ public class GameService {
             @ApiResponse(code = 2, message = "Empty"),
             @ApiResponse(code = 3,message = "Error")
     })
-    @Path("/loadAllGames")
+    @Path("/llistaGames")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loadAllGames (){
+    public Response llistaGames (){
 
         List<Game> allGames = this.manager.loadAllGames();
         String json = new Gson().toJson(allGames);

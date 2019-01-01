@@ -79,6 +79,15 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQueryCheckGame(Object entity){
+        System.out.println("Entra a la funcio check game");
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE nameGame = ?");
+
+        return sb.toString();
+    }
+
     public static String createQueryUPDATEuserName(Object entity){
         System.out.println("Entra a la funcio de UPDATE.");
         StringBuffer sb = new StringBuffer();

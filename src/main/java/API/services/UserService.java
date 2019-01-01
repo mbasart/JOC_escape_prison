@@ -80,7 +80,7 @@ public class UserService {
     })
     @Path("/login/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loginUser(@PathParam("userName") String userName, String password){
+    public Response login(@PathParam("userName") String userName, String password){
         int encontrado = this.manager.login(userName, password);
         if(encontrado == 1)
             return Response.status(1).build();
@@ -103,7 +103,7 @@ public class UserService {
     })
     @Path("/register/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerUser(@PathParam("userName") String userName, String password){
+    public Response register(@PathParam("userName") String userName, String password){
         try{
             Boolean encontrado = this.manager.register(userName,password);
             if(encontrado == true)
@@ -160,9 +160,9 @@ public class UserService {
             @ApiResponse(code = 2, message = "Empty"),
             @ApiResponse(code = 3,message = "Error")
     })
-    @Path("/loadAllUsers")
+    @Path("/loadUsers")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response loadAllUsers (){
+    public Response loadUsers (){
 
         List<User> allUsers = this.manager.loadAllUsers();
         String json = new Gson().toJson(allUsers);
