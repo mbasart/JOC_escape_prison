@@ -1,9 +1,7 @@
 package API.implement;
 
 import API.interfaces.Manager;
-import API.model.Game;
-import API.model.RelationUserGame;
-import API.model.User;
+import API.model.*;
 import DAO.FactorySession;
 import DAO.Session;
 import com.google.common.collect.Lists;
@@ -291,7 +289,7 @@ public class ManagerImpl implements Manager {
             success = 2; //no s'ha insertat a la base de dades perque el user no existeix
         else {
             if(this.checkGame(nameGame)== true)
-                success = 3; //ja existeix aquest nom i per tant no el pot fer servir
+                success = 3; //ja existeix aquest nom de game i per tant no el pot fer servir
             else {
                 try {
                     session = FactorySession.openSession();
@@ -301,6 +299,9 @@ public class ManagerImpl implements Manager {
 
                     RelationUserGame relationusergame = new RelationUserGame(userName, nameGame);
                     session.save(relationusergame);
+
+                    RelationGameLevel relationgamelevel = new RelationGameLevel(nameGame, 1);
+                    session.save(relationgamelevel);
 
                     success = 1; // aixo vol dir que s'ha insertat el game satisfactoriament
                 } catch (Exception e) {
@@ -428,5 +429,47 @@ public class ManagerImpl implements Manager {
             session.close();
         }
         return encontrado;
+    }
+
+    public Level getLevelOfGame (String nameGame){
+        Session session = null;
+        Level level = null;
+        int numLevel = 0;
+
+
+        try{
+            session = FactorySession.openSession();
+            numLevel = session.findLevelGame(new RelationGameLevel("",0),nameGame);
+
+            level = (Level)session.checkLevel(new Level("",0), numLevel);
+
+        }catch (Exception e){
+            log.error("Error al obtenir el Level");
+        }finally {
+            session.close();
+        }
+        return level;
+    }
+
+    public Boolean checkPartidaAcabada(String nameGame){
+        Session session = null;
+        Game game = null;
+        Boolean isCompleted = false;
+        try{
+            log.info("funcio checkGame");
+            session = FactorySession.openSession();
+            game = (Game)session.checkGame(new Game(0,0,0,""),nameGame);
+            if(game.getNameGame().equals(nameGame)) {
+                if(game.getIsCompleted() == 1)
+                    isCompleted = true; //aixo vol dir que la partida esta acabada
+                else
+                    isCompleted = false; //la partida NO esta acabada
+            }
+        }catch (Exception e){
+            log.error("Error al obtenir un game");
+        }finally {
+            session.close();
+        }
+        return isCompleted;
     }
 }

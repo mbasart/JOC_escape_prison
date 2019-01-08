@@ -19,7 +19,7 @@ public interface Manager {
     //public void updateGame(int idGame, int isCompleted, int gameLength, int healthPoints);
 
     //public Level getLevel(int levelID);
-    //public int addLevel (String map, int playerPosition);
+    //public int addLevel (String map, int numLevel);
 
     int login(String userName, String password);
     Boolean register(String userName, String password);
@@ -30,8 +30,10 @@ public interface Manager {
     List<User> loadAllUsers();
     List<Game> loadGamesOfUser (String userName);
     Game getGameOfUser (String userName, String gameName);
+    Level getLevelOfGame (String nameGame);
 
     Boolean checkGame(String nameGame);
     Boolean checkUser(String userName);
     Boolean checkGameOfUser(String userName, String gameName);
+    Boolean checkPartidaAcabada(String nameGame);
 }

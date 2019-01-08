@@ -4,12 +4,12 @@ public class Level {
 
     //public int numLevel;
     public String map;
-    public int playerPosition;
+    public int numLevel;
 
 
     public Level(String map, int playerPosition) {
         this.map = map;
-        this.playerPosition = playerPosition;
+        this.numLevel = playerPosition;
     }
 
     public Level(){
@@ -24,11 +24,11 @@ public class Level {
         this.map = map;
     }
 
-    public int getPlayerPosition() {
-        return playerPosition;
+    public int getNumLevel() {
+        return numLevel;
     }
 
-    public void setPlayerPosition(int playerPosition) {
-        this.playerPosition = playerPosition;
+    public void setNumLevel(int numLevel) {
+        this.numLevel = numLevel;
     }
 }

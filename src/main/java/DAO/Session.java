@@ -15,8 +15,10 @@ public interface Session {
     List<Game> findAllGames(Object o);
     List<User> findAllUsers(Object o);
     List<String> findGamesUser(Object o, String userName);
+    int findLevelGame(Object o, String nameGame);
 
     Object login(Object object, String userName);
     Object checkGame(Object o, String nameGame);
     void updateUserName(Object object, String userName);
+    Object checkLevel(Object o, int numLevel);
 }

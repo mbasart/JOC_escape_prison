@@ -35,7 +35,7 @@ public class LevelImpl implements ILevel {
             session = FactorySession.openSession();
             Level level = new Level(map, playerPosition);
             session.save(level);
-            log.info("nameLevel: " + map + " PlauerPosition: " + Integer.toString(level.getPlayerPosition())); //per veure si el employee esta be
+            log.info("nameLevel: " + map + " PlauerPosition: " + Integer.toString(level.getNumLevel())); //per veure si el employee esta be
         }
         catch (Exception e) {
             // LOG
@@ -54,7 +54,7 @@ public class LevelImpl implements ILevel {
         try {
             session = FactorySession.openSession();
             level = (Level)session.get(new Level("",0), levelID);
-            log.info("Level: "+ level.getMap() + " PlayerPosition: "+Integer.toString(level.getPlayerPosition()));
+            log.info("Level: "+ level.getMap() + " PlayerPosition: "+Integer.toString(level.getNumLevel()));
         }
         catch (Exception e) {
             // LOG
@@ -70,7 +70,7 @@ public class LevelImpl implements ILevel {
     public void updateLevel(int idLevel, String map, int playerPosition) {
         Level level = this.getLevel(idLevel);
         level.setMap(map);
-        level.setPlayerPosition(playerPosition);
+        level.setNumLevel(playerPosition);
 
         Session session = null;
         try {

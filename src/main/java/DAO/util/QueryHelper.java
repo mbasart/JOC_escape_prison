@@ -115,4 +115,22 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQuerySearchLevelGame(Object entity){
+        System.out.println("Entra a la funcio search level of game");
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE nameGame = ?");
+
+        return sb.toString();
+    }
+
+    public static String createQueryCheckLevel(Object entity){
+        System.out.println("Entra a la funcio check level");
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE numLevel = ?");
+
+        return sb.toString();
+    }
+
 }

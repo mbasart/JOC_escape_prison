@@ -227,6 +227,30 @@ public class SessionImpl implements Session {
         return listOfGames;
     }
 
+    public int findLevelGame(Object o, String nameGame){
+        Class theClass = o.getClass();
+        String findLevelQuery = QueryHelper.createQuerySearchLevelGame(o);
+
+        int numLevel = 0;
+
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+
+        try{
+            pstm = conn.prepareStatement(findLevelQuery);
+            pstm.setObject(1, nameGame);
+            rs = pstm.executeQuery();
+
+            while (rs.next()){
+                String numLevelS = rs.getString(3);
+                numLevel = Integer.parseInt(numLevelS);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return numLevel;
+    }
+
     public Object login(Object o,String userName){
 
         Class theClass = o.getClass();
@@ -303,6 +327,40 @@ public class SessionImpl implements Session {
             return o;
         }
 
+        return o;
+    }
+
+    public Object checkLevel(Object o, int numLevel){
+        Class theClass = o.getClass();
+        String selectQuery = QueryHelper.createQueryCheckLevel(o);
+        log.info(selectQuery);
+
+        PreparedStatement pstm = null;
+        ResultSet result = null;
+
+        try{
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(1, numLevel);
+
+            result = pstm.executeQuery();
+
+            while (result.next()){
+                Field[] fields = theClass.getDeclaredFields();
+                result.getString(1);
+
+                for (int i =0;i<fields.length;i++){
+                    ResultSetMetaData rsmd = result.getMetaData();
+                    String name = rsmd.getColumnName(i + 2);
+                    ObjectHelper.setter(o,name,result.getObject(i+2));
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            return o;
+        }catch (NoSuchMethodException e){
+            e.printStackTrace();
+            return o;
+        }
         return o;
     }
 
