@@ -472,4 +472,41 @@ public class ManagerImpl implements Manager {
         }
         return isCompleted;
     }
+
+    public int updateGameOfUser(String userName, String nameGame, int gameLength, int healthPoints){
+        Game game = this.getGameOfUser(userName,nameGame);
+        game.setGameLength(gameLength);
+        game.setHealthPoints(healthPoints);
+
+        Session session = null;
+        int resultat = 0;
+
+        if(!checkUser(userName))
+            resultat = 3; //no existeix usuari
+        else if(!checkGame(nameGame))
+            resultat = 4; //no existeix partida amb aquest nom
+        else if(checkPartidaAcabada(nameGame))
+            resultat = 2; //ja s'ha completat la partida
+        else{
+            try{
+                session = FactorySession.openSession();
+
+                int numLevel;
+
+                numLevel = session.findLevelGame(new RelationGameLevel("", 0), nameGame);
+                RelationGameLevel relationgamelevel = new RelationGameLevel(nameGame, numLevel + 1);
+                session.updateGame(relationgamelevel, nameGame);
+                session.updateGame(game, nameGame);
+
+                if(numLevel == 2){
+                    game.setIsCompleted(1);
+                    session.updateGame(game,nameGame);
+                }
+                resultat = 1; //actualitzat correctament
+            }catch (Exception e){
+                log.error("Error al actualitzar un game");
+            }
+        }
+        return resultat;
+    }
 }

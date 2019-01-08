@@ -6,6 +6,7 @@ import API.interfaces.*;
 import API.model.Game;
 import com.google.gson.Gson;
 import io.swagger.annotations.*;
+import io.swagger.jaxrs.PATCH;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -135,5 +136,27 @@ public class GameService {
             return Response.status(3).build();
         else
             return Response.status(1).entity(gameUser).build();
+    }
+
+    @PATCH
+    @ApiOperation(value = "update a game of a specific user", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 1,message ="Successful"),
+            @ApiResponse(code = 2, message = "Partida acabada"),
+            @ApiResponse(code = 3, message = "Username no existeix"),
+            @ApiResponse(code = 4, message = "NameGame no existeix")
+    })
+    @Path("/updateGame/{userName}/{nameGame}/{gameLength}/{healthPoints}")
+    public Response updateGame(@PathParam("userName") String userName, @PathParam("nameGame") String nameGame, @PathParam("gameLength") int gameLength, @PathParam("healthPoints") int healthPoints){
+        int resultat = this.manager.updateGameOfUser(userName,nameGame,gameLength,healthPoints);
+
+        if(resultat==3)
+            return Response.status(3).build();
+        else if(resultat==4)
+            return Response.status(4).build();
+        else if(resultat == 2)
+            return Response.status(2).build();
+        else
+             return Response.status(1).build();
     }
 }

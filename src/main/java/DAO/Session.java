@@ -21,4 +21,5 @@ public interface Session {
     Object checkGame(Object o, String nameGame);
     void updateUserName(Object object, String userName);
     Object checkLevel(Object o, int numLevel);
+    void updateGame(Object object, String nameGame);
 }

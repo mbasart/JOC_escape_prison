@@ -68,7 +68,7 @@ public class ManagerImplTest {
         //Assert.assertEquals(1,this.manager.newGame("Meritxell","partida10"));
         //Assert.assertEquals(2,this.manager.newGame("Paula","partida11"));
         //Assert.assertEquals(3, this.manager.newGame("Meritxell","partida5"));
-        Assert.assertEquals(1, this.manager.newGame("Meritxell","partidaLevel2"));
+        Assert.assertEquals(1, this.manager.newGame("Meritxell","partidaLevel4"));
         this.manager.clear();
     }
 
@@ -114,6 +114,14 @@ public class ManagerImplTest {
     public void getLevelOfGameDB(){
         this.manager = ManagerImpl.getInstance();
         Assert.assertEquals("mapa1",this.manager.getLevelOfGame("partidaLevel2").getMap());
+        this.manager.clear();
+    }
+
+    @Test
+    public void updateGameDB(){
+        this.manager = ManagerImpl.getInstance();
+        //Assert.assertEquals(1,this.manager.updateGameOfUser("Meritxell","partidaLevel4",200,2));
+        Assert.assertEquals(2,this.manager.updateGameOfUser("Meritxell","partidaLevel4",200,2));
         this.manager.clear();
     }
 }

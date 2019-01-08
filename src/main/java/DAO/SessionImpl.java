@@ -392,4 +392,31 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
     }
+
+    public void updateGame(Object object, String nameGame){
+        String updateQuery = QueryHelper.createQueryUPDATEgame(object);
+
+        PreparedStatement pstm = null;
+
+        try{
+            log.info("Entrem a la funcio del updateGame");
+            pstm = conn.prepareStatement(updateQuery);
+            int i = 1;
+
+            for(String field: ObjectHelper.getFields(object)){
+                pstm.setObject(i++,ObjectHelper.getter(object,field));
+            }
+
+            pstm.setObject(i,nameGame);
+            pstm.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 }

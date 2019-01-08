@@ -31,6 +31,7 @@ public interface Manager {
     List<Game> loadGamesOfUser (String userName);
     Game getGameOfUser (String userName, String gameName);
     Level getLevelOfGame (String nameGame);
+    int updateGameOfUser(String userName, String nameGame, int gameLength, int healthPoints);
 
     Boolean checkGame(String nameGame);
     Boolean checkUser(String userName);
