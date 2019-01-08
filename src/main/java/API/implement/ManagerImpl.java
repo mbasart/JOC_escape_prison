@@ -155,7 +155,7 @@ public class ManagerImpl implements Manager {
     }
 
     //comprova si un usuari esta a la taula d'usuaris
-    private Boolean checkUser(String userName){
+    public Boolean checkUser(String userName){
         Session session = null;
         Boolean encontrado = false;
         User user = null;
@@ -176,7 +176,7 @@ public class ManagerImpl implements Manager {
     }
 
     //comprova si un game esta a la taula de games
-    private Boolean checkGame(String nameGame){
+    public Boolean checkGame(String nameGame){
         Session session = null;
         Boolean encontrado = false;
         Game game = null;
@@ -381,5 +381,52 @@ public class ManagerImpl implements Manager {
         }
 
         return gameList;
+    }
+
+    public Game getGameOfUser (String userName, String gameName){
+        Session session = null;
+        Game game = null;
+        List<String> gamesUser = new ArrayList<>();
+        Game gameEncontrado = null;
+
+        try{
+            session = FactorySession.openSession();
+            gamesUser = session.findGamesUser(new RelationUserGame("",""),userName);
+
+            for(int i = 0; gamesUser.size() > i; i++){
+                game = (Game)session.checkGame(new Game(0,0,0,""),gamesUser.get(i));
+
+                if(gameName.equals(game.getNameGame())){
+                    gameEncontrado = game;
+                }
+            }
+
+        }catch (Exception e){
+            log.error("Error al obtenir el game");
+        }finally {
+            session.close();
+        }
+        return gameEncontrado;
+    }
+
+    public Boolean checkGameOfUser(String userName, String gameName){
+        Session session = null;
+        List<String> gamesUser = new ArrayList<>();
+        Boolean encontrado = false;
+
+        try{
+            session = FactorySession.openSession();
+            gamesUser = session.findGamesUser(new RelationUserGame("",""),userName);
+
+            for(int i = 0; gamesUser.size() > i;i++){
+                if(gameName.equals(gamesUser.get(i)))
+                    encontrado = true; //hem trobat el nom del joc
+            }
+        }catch (Exception e){
+            log.error("Error al trobar el joc");
+        }finally {
+            session.close();
+        }
+        return encontrado;
     }
 }

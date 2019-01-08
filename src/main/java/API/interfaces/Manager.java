@@ -29,4 +29,9 @@ public interface Manager {
     List<Game> loadAllGames();
     List<User> loadAllUsers();
     List<Game> loadGamesOfUser (String userName);
+    Game getGameOfUser (String userName, String gameName);
+
+    Boolean checkGame(String nameGame);
+    Boolean checkUser(String userName);
+    Boolean checkGameOfUser(String userName, String gameName);
 }

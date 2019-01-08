@@ -101,4 +101,11 @@ public class ManagerImplTest {
         Assert.assertEquals(3,this.manager.loadGamesOfUser("Meritxell").get(0).getHealthPoints());
         this.manager.clear();
     }
+
+    @Test
+    public void getGameOfUserDB(){
+        this.manager = ManagerImpl.getInstance();
+        Assert.assertEquals("partida4",this.manager.getGameOfUser("Meritxell","partida4").getNameGame());
+        this.manager.clear();
+    }
 }

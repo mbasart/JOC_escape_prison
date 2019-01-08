@@ -114,4 +114,26 @@ public class GameService {
             return Response.status(3).build();
         }
     }
+
+    @GET
+    @ApiOperation(value = "obtain a game of a specific user", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 1, message = "Succesful"),
+            @ApiResponse(code = 2, message = "Username no existeix"),
+            @ApiResponse(code = 3, message = "Gamename no existeix")
+    })
+    @Path("/getGame/{userName}/{nameGame}")
+    public Response getGameOfUser(@PathParam("userName") String userName,@PathParam("nameGame") String nameGame){
+        Game gameUser = this.manager.getGameOfUser(userName,nameGame);
+        Boolean checkUser = this.manager.checkUser(userName);
+        Boolean checkGame = this.manager.checkGameOfUser(userName,nameGame);
+
+
+        if(!checkUser)
+            return Response.status(2).build();
+        else if(!checkGame)
+            return Response.status(3).build();
+        else
+            return Response.status(1).entity(gameUser).build();
+    }
 }
