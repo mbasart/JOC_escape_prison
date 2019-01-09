@@ -44,7 +44,8 @@ public class ManagerImplTest {
     @Test
     public void registerDB(){
         this.manager = ManagerImpl.getInstance();
-        Assert.assertEquals(false,this.manager.register("Meritxell","holahola"));
+        //Assert.assertEquals(false,this.manager.register("Meritxell","holahola"));
+        Assert.assertEquals(true,this.manager.register("Meritxell2","casaaa"));
         this.manager.clear();
     }
 

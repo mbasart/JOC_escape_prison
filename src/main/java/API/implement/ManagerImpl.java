@@ -198,8 +198,8 @@ public class ManagerImpl implements Manager {
         Boolean encontrado= false;
         if(this.login(userName,password)== 2)
             encontrado = false; //aixo vol dir que l'usuari ja existeix
-        else if(this.login(userName,password)==0)
-            encontrado = false;
+        //else if(this.login(userName,password)==0)
+            //encontrado = false;
         else {
             Session session = null;
             int isAdmin = 0;
