@@ -9,12 +9,13 @@ import io.swagger.annotations.*;
 import io.swagger.jaxrs.PATCH;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Api(value = "/game", description = "Endpoint to Game Service")
-@Path("/")
+@Path("/game")
 public class GameService {
 
     private Manager manager;
@@ -73,9 +74,9 @@ public class GameService {
     }
 
     @GET
-    @ApiOperation(value = "obtain a list of games", notes = "asdasd",response = Game.class, responseContainer = "List")
+    @ApiOperation(value = "obtain a list of games", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 1, message = "Successful", response = Game.class),
             @ApiResponse(code = 2, message = "Empty"),
             @ApiResponse(code = 3,message = "Error")
     })
@@ -84,10 +85,11 @@ public class GameService {
     public Response llistaGames (){
 
         List<Game> allGames = this.manager.loadAllGames();
-        String json = new Gson().toJson(allGames);
+        GenericEntity<List<Game>> entity = new GenericEntity<List<Game>>(allGames) {};
+        //String json = new Gson().toJson(allGames);
         try {
             if (allGames.size() > 0)
-                return Response.status(1).entity(json).build();
+                return Response.status(1).entity(entity).build();
             else
                 return Response.status(2).build();
         }catch (Exception e){
@@ -96,19 +98,20 @@ public class GameService {
     }
 
     @GET
-    @ApiOperation(value = "obtain a list of games of a specific user", notes = "asdasd",response = Game.class,responseContainer = "List")
+    @ApiOperation(value = "obtain a list of games of a specific user", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1,message = "Succesful"),
+            @ApiResponse(code = 1,message = "Succesful",response = Game.class),
             @ApiResponse(code = 2,message = "No hi ha games"),
             @ApiResponse(code = 3,message = "Error")
     })
     @Path("/gameList/{userName}")
     public Response llistaGamesUser(@PathParam("userName") String userName){
         List<Game> gamesUser = this.manager.loadGamesOfUser(userName);
-        String json = new Gson().toJson(gamesUser);
+        GenericEntity<List<Game>> entity = new GenericEntity<List<Game>>(gamesUser) {};
+        //String json = new Gson().toJson(gamesUser);
         try{
             if(gamesUser.size()>0)
-                return Response.status(1).entity(json).build();
+                return Response.status(1).entity(entity).build();
             else
                 return Response.status(2).build();
         }catch (Exception e) {
@@ -119,7 +122,7 @@ public class GameService {
     @GET
     @ApiOperation(value = "obtain a game of a specific user", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1, message = "Succesful"),
+            @ApiResponse(code = 1, message = "Succesful",response = Game.class),
             @ApiResponse(code = 2, message = "Username no existeix"),
             @ApiResponse(code = 3, message = "Gamename no existeix")
     })

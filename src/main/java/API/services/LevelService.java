@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Api(value = "/level", description = "Endpoint to Level Service")
-@Path("/")
+@Path("/level")
 public class LevelService {
 
     private Manager manager;

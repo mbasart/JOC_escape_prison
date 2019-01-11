@@ -5,19 +5,17 @@ import API.implement.*;
 import API.interfaces.*;
 import API.model.*;
 import com.google.gson.Gson;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import io.swagger.jaxrs.PATCH;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Api(value = "/user", description = "Endpoint to Service Service")
-@Path("/")
+@Path("/user")
 public class UserService {
 
     //private IUser iUser;
@@ -73,7 +71,7 @@ public class UserService {
     @POST
     @ApiOperation(value = "Login", notes="asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 2, message = "Successful"),
+            @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 0, message = "Password incorrect"),
             @ApiResponse(code = 1, message = "User is banned"),
             @ApiResponse(code = 3, message = "User is admin")
@@ -89,7 +87,7 @@ public class UserService {
         else if(encontrado == 3)
             return Response.status(3).build();
         else
-            return Response.status(2).build();
+            return Response.status(201).build();
 
 
     }
@@ -97,17 +95,17 @@ public class UserService {
     @PUT
     @ApiOperation(value = "Register", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 2,message = "User already exists"),
             @ApiResponse(code = 3,message = "Qualsevol altre error")
     })
     @Path("/register/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(@PathParam("userName") String userName, String password){
+    public Response register(@PathParam("userName") String userName,@ApiParam(value = "password",required = true) String password){
         try{
             Boolean encontrado = this.manager.register(userName,password);
             if(encontrado == true)
-                return Response.status(1).build();
+                return Response.status(201).build();
             else
                 return Response.status(2).build();
         }catch(Exception e){
@@ -154,9 +152,9 @@ public class UserService {
     }
 
     @GET
-    @ApiOperation(value = "obtain a list of users", notes = "asdasd",response = User.class, responseContainer = "List")
+    @ApiOperation(value = "obtain a list of users", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1, message = "Successful"),
+            @ApiResponse(code = 201, message = "Successful",response = User.class),
             @ApiResponse(code = 2, message = "Empty"),
             @ApiResponse(code = 3,message = "Error")
     })
@@ -165,10 +163,11 @@ public class UserService {
     public Response loadUsers (){
 
         List<User> allUsers = this.manager.loadAllUsers();
-        String json = new Gson().toJson(allUsers);
+        GenericEntity<List<User>> entity = new GenericEntity<List<User>>(allUsers) {};
+        //String json = new Gson().toJson(allUsers);
         try {
             if (allUsers.size() > 0)
-                return Response.status(1).entity(json).build();
+                return Response.status(201).entity(entity).build();
             else
                 return Response.status(2).build();
         }catch (Exception e){
