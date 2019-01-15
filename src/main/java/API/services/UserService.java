@@ -110,11 +110,13 @@ public class UserService {
             //@ApiResponse(code = 2,message = "User already exists"),
             @ApiResponse(code = 404,message = "Error")
     })
-    @Path("/register/{userName}")
+    @Path("/register/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(@PathParam("userName") String userName,String password){
+    public Response register(BodyUser bodyUser){
         try{
             Respuesta respuesta;
+            String userName = bodyUser.getUserName();
+            String password = bodyUser.getPassword();
             Boolean encontrado = this.manager.register(userName,password);
 
             if(encontrado == true) {
@@ -138,7 +140,7 @@ public class UserService {
             @ApiResponse(code = 201,message = "Successful",response = Respuesta.class),
             @ApiResponse(code = 404,message = "Ni banned ni unbanned")
     })
-    @Path("/banned/{userName}")
+    @Path("/banned/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response banned (@PathParam("userName") String userName){
         Respuesta respuesta;
