@@ -71,63 +71,87 @@ public class UserService {
     @POST
     @ApiOperation(value = "Login", notes="asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 0, message = "Password incorrect"),
+            @ApiResponse(code = 201, message = "Successful",response = Respuesta.class)
+            /*@ApiResponse(code = 0, message = "Password incorrect"),
             @ApiResponse(code = 1, message = "User is banned"),
-            @ApiResponse(code = 3, message = "User is admin")
+            @ApiResponse(code = 3, message = "User is admin")*/
     })
     @Path("/login/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@PathParam("userName") String userName, String password){
+    public Response login(BodyUser bodyUser){
+    //public Response login(@PathParam("userName") String userName, String password){
+        String userName = bodyUser.getUserName();
+        String password = bodyUser.getPassword();
         int encontrado = this.manager.login(userName, password);
-        if(encontrado == 1)
-            return Response.status(1).build();
-        else if(encontrado == 0)
-            return Response.status(0).build();
-        else if(encontrado == 3)
-            return Response.status(3).build();
-        else
-            return Response.status(201).build();
-
+        Respuesta respuesta;
+        if(encontrado == 1) {
+            respuesta = new Respuesta(1,"User is banned");
+            return Response.status(201).entity(respuesta).build();
+        }
+        else if(encontrado == 0) {
+            respuesta = new Respuesta(0,"Password incorrect");
+            return Response.status(201).entity(respuesta).build();
+        }
+        else if(encontrado == 3) {
+            respuesta = new Respuesta(3,"User is admin");
+            return Response.status(201).entity(respuesta).build();
+        }
+        else {
+            respuesta = new Respuesta(2,"Successful");
+            return Response.status(201).entity(respuesta).build();
+        }
 
     }
 
     @PUT
     @ApiOperation(value = "Register", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 2,message = "User already exists"),
-            @ApiResponse(code = 3,message = "Qualsevol altre error")
+            @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),
+            //@ApiResponse(code = 2,message = "User already exists"),
+            @ApiResponse(code = 404,message = "Error")
     })
     @Path("/register/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(@PathParam("userName") String userName,@ApiParam(value = "password",required = true) String password){
+    public Response register(@PathParam("userName") String userName,String password){
         try{
+            Respuesta respuesta;
             Boolean encontrado = this.manager.register(userName,password);
-            if(encontrado == true)
-                return Response.status(201).build();
-            else
-                return Response.status(2).build();
+
+            if(encontrado == true) {
+                int prueba = 1;
+                respuesta = new Respuesta(1,"Successful");
+                return Response.status(201).entity(respuesta).build();
+            }
+            else {
+                int prueba = 2;
+                respuesta = new Respuesta(2,"User already exists");
+                return Response.status(201).entity(respuesta).build();
+            }
         }catch(Exception e){
-            return Response.status(3).build();
+            return Response.status(404).build();
         }
     }
 
     @PATCH
     @ApiOperation(value = "Banned",notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201,message = "Successful"),
+            @ApiResponse(code = 201,message = "Successful",response = Respuesta.class),
             @ApiResponse(code = 404,message = "Ni banned ni unbanned")
     })
     @Path("/banned/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response banned (@PathParam("userName") String userName){
+        Respuesta respuesta;
         try{
             int banned = this.manager.banned(userName);
-            if(banned == 1)
-                return Response.status(201).build();
-            else
-                return Response.status(201).build();
+            if(banned == 1) {
+                respuesta = new Respuesta(1, "Successful, now is banned");
+                return Response.status(201).entity(respuesta).build();
+            }
+            else{
+                respuesta = new Respuesta(1, "Successful, now is unbanned");
+                return Response.status(201).entity(respuesta).build();
+            }
         }catch (Exception e){
             return Response.status(404).build();
         }
@@ -136,27 +160,31 @@ public class UserService {
     @PATCH
     @ApiOperation(value = "Admin",notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201,message = "Successful"),
+            @ApiResponse(code = 201,message = "Successful",response = Respuesta.class),
             @ApiResponse(code = 404,message = "Unsuccessful")
     })
     @Path("/admin/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response admin (@PathParam("userName") String userName){
         int admin = this.manager.admin(userName);
-        if(admin == 0)
-            return Response.status(201).build();
-        else if(admin == 1)
-            return Response.status(201).build();
-        else
-            return Response.status(404).build();
+        Respuesta respuesta;
+        if(admin == 0){
+            respuesta = new Respuesta(0,"Successful, now is not Admin");
+            return Response.status(201).entity(respuesta).build();}
+        else if(admin == 1){
+            respuesta = new Respuesta(1,"Successful, now is Admin");
+            return Response.status(201).entity(respuesta).build();}
+        else{
+
+            return Response.status(404).build();}
     }
 
     @GET
     @ApiOperation(value = "obtain a list of users", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful",response = User.class),
-            @ApiResponse(code = 2, message = "Empty"),
-            @ApiResponse(code = 3,message = "Error")
+            //@ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 404,message = "Unsuccessful")
     })
     @Path("/loadUsers")
     @Produces(MediaType.APPLICATION_JSON)
@@ -166,10 +194,10 @@ public class UserService {
         GenericEntity<List<User>> entity = new GenericEntity<List<User>>(allUsers) {};
         //String json = new Gson().toJson(allUsers);
         try {
-            if (allUsers.size() > 0)
+            //if (allUsers.size() > 0)
                 return Response.status(201).entity(entity).build();
-            else
-                return Response.status(2).build();
+            //else
+                //return Response.status(2).build();
         }catch (Exception e){
             return Response.status(3).build();
         }

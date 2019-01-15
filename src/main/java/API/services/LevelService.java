@@ -57,10 +57,10 @@ public class LevelService {
     @GET
     @ApiOperation(value = "Obten un nivell a partir d'un game", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 1,message = "Successful",response = Level.class),
-            @ApiResponse(code = 2,message = "Partida acabada"),
-            @ApiResponse(code = 3,message = "Username no existeix"),
-            @ApiResponse(code = 4,message = "Gamename no existeix")
+            @ApiResponse(code = 201,message = "Successful",response = Level.class),
+            @ApiResponse(code = 200,message = "Successful",response = Respuesta.class),
+            //@ApiResponse(code = 3,message = "Username no existeix"),
+            //@ApiResponse(code = 4,message = "Gamename no existeix")
     })
     @Path("/getLevel/{userName}/{nameGame}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -69,14 +69,21 @@ public class LevelService {
         Boolean checkUser = this.manager.checkUser(userName);
         Boolean checkGame = this.manager.checkGameOfUser(userName,nameGame);
         Boolean checkIsCompleted = this.manager.checkPartidaAcabada(nameGame);
-
-        if(!checkUser)
-            return Response.status(3).build();
-        else if(!checkGame)
-            return Response.status(4).build();
-        else if(checkIsCompleted)
-            return Response.status(2).build();
-        else
-            return Response.status(1).entity(level).build();
+        Respuesta respuesta;
+        if(!checkUser){
+            respuesta = new Respuesta(3,"Username no existeix");
+            return Response.status(200).entity(respuesta).build();
+        }
+        else if(!checkGame){
+            respuesta = new Respuesta(4,"Gamename no existeix");
+            return Response.status(200).entity(respuesta).build();
+        }
+        else if(checkIsCompleted){
+            respuesta = new Respuesta(2,"Game completed");
+            return Response.status(200).entity(respuesta).build();
+        }
+        else{
+            return Response.status(201).entity(level).build();
+        }
     }
 }
