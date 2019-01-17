@@ -55,7 +55,7 @@ public class GameService {
     }*/
 
     //A partir d'aqui coses pel joc
-    @PUT
+    @POST
     @ApiOperation(value = "create a new Game", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),

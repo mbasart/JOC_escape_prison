@@ -76,7 +76,7 @@ public class UserService {
             @ApiResponse(code = 1, message = "User is banned"),
             @ApiResponse(code = 3, message = "User is admin")*/
     })
-    @Path("/login/{userName}")
+    @Path("/login/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(BodyUser bodyUser){
     //public Response login(@PathParam("userName") String userName, String password){
@@ -103,7 +103,7 @@ public class UserService {
 
     }
 
-    @PUT
+    @POST
     @ApiOperation(value = "Register", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),
@@ -142,8 +142,9 @@ public class UserService {
     })
     @Path("/banned/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response banned (@PathParam("userName") String userName){
+    public Response banned (String userName){
         Respuesta respuesta;
+        //String userName = name;
         try{
             int banned = this.manager.banned(userName);
             if(banned == 1) {
@@ -165,9 +166,9 @@ public class UserService {
             @ApiResponse(code = 201,message = "Successful",response = Respuesta.class),
             @ApiResponse(code = 404,message = "Unsuccessful")
     })
-    @Path("/admin/{userName}")
+    @Path("/admin/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response admin (@PathParam("userName") String userName){
+    public Response admin (String userName){
         int admin = this.manager.admin(userName);
         Respuesta respuesta;
         if(admin == 0){
