@@ -9,10 +9,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   	<script src="scripts/indexJs.js"></script>
+
+  	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	
 
 </head>
-<body id="adminUserList">
+<body id="adminUserList" background="resources/mooning.png">
 	<br />
 	<nav class="navbar navbar-default">
 		<a class="navbar-brand" id="navBarName" style="margin-left: 5%">Admin</a>
@@ -23,6 +25,7 @@
 		    <ul class="nav navbar-nav">
 		      <li class="active" ><a id ="goAdminUserList" style="cursor: pointer">User List</a></li>
 		      <li><a id ="goScoreboard" style="cursor: pointer">Scoreboard</a></li>
+		      <li><a id ="goAllGames" style="cursor: pointer">All Games</a></li>
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right" style="margin-right: 5%">
 		      <li><a id="logout" style="cursor: pointer"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -34,10 +37,10 @@
 		<table class="table table-hover">
 		    <thead>
 		      <tr>
-		        <th>User Name</th>
-		        <th>Admin?</th>
-		        <th>Banned?</th>
-		        <th>Money</th>
+		        <th><h3>User Name</h3></th>
+		        <th><h3>Admin?</h3></th>
+		        <th><h3>Banned?</h3></th>
+		        <th><h3>Money</h3></th>
 		      </tr>
 		    </thead>
 		    <tbody class="repos" id="userList">

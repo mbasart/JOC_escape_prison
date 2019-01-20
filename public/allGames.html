@@ -2,7 +2,7 @@
 <html>	
 <head>
 
-	<title>Scoreboard</title>
+	<title>All Games</title>
 
 	<script src="scripts/jquery-3.2.1.js"></script>
 
@@ -19,11 +19,12 @@
 		<a class="navbar-brand" id="navBarName" style="margin-left: 5%">Admin</a>
 		  <div class="container-fluid">
 		    <div class="navbar-header">
+		      
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li ><a id ="goAdminUserList" style="cursor: pointer">User List</a></li>
-		      <li class="active" ><a id ="goScoreboard" style="cursor: pointer">Scoreboard</a></li>
-		      <li><a id ="goAllGames" style="cursor: pointer">All Games</a></li>
+		      <li><a id ="goScoreboard" style="cursor: pointer">Scoreboard</a></li>
+		      <li class="active" ><a id ="goAllGames" style="cursor: pointer">All Games</a></li>
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right" style="margin-right: 5%">
 		      <li><a id="logout" style="cursor: pointer"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -42,7 +43,7 @@
 		        <th><h3>Is completed?</h3></th>
 		      </tr>
 		    </thead>
-		    <tbody class="repos" id="scoreList">
+		    <tbody class="repos" id="gameList">
 		    </tbody>
 		</table>
 	</div>
