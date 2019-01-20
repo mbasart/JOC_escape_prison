@@ -206,4 +206,88 @@ public class UserService {
         }
     }
 
+    @POST
+    @ApiOperation(value="put username and gamename",notes = "qada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),
+            //@ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 404,message = "Unsuccessful")
+    })
+    @Path("/putUserAndGame/{userName}/{gameName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response putUserAndGame (@PathParam("userName") String userName, @PathParam("gameName") String gameName){
+
+
+
+        try {
+            //if (allUsers.size() > 0)
+            //this.gameNameLast.push(gameName);
+            //this.nameUserLast.push(userName);
+            //if(gameNameLast.size()>=1) {
+
+            this.manager.addUserLast(userName);
+            this.manager.addGameLast(gameName);
+            //this.userGame.setUser(userName);
+            //this.userGame.setGame(gameName);
+            if(this.manager.getGameLast().equals(gameName)){
+                Respuesta respuesta = new Respuesta(1, "Successful");
+                //System.out.print(this.userGame.getGame());
+                return Response.status(201).entity(respuesta).build();
+            }else{
+                Respuesta respuesta = new Respuesta(2, "Error");
+                return Response.status(201).entity(respuesta).build();
+            }
+
+            //else
+            //return Response.status(2).build();
+        }catch (Exception e){
+            return Response.status(3).build();
+        }
+    }
+    @GET
+    @ApiOperation(value="get userName",notes = "qada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),
+            //@ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 404,message = "Unsuccessful")
+    })
+    @Path("/getUserNameLast")
+    public Response getUserNameLast (){
+
+
+        try {
+
+            String user = this.manager.getUserLast();
+            Respuesta respuesta = new Respuesta(1,user);
+            return Response.status(201).entity(respuesta).build();
+            //else
+            //return Response.status(2).build();
+        }catch (Exception e){
+            return Response.status(3).build();
+        }
+    }
+
+    @GET
+    @ApiOperation(value="get nameGame",notes = "qada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful",response = Respuesta.class),
+            //@ApiResponse(code = 2, message = "Empty"),
+            @ApiResponse(code = 404,message = "Unsuccessful")
+    })
+    @Path("/getGameNameLast")
+    public Response getGameNameLast (){
+
+
+        try {
+            String game = this.manager.getGameLast();
+            Respuesta respuesta = new Respuesta(1,game);
+            System.out.print("Hola:" +this.manager.getGameLast());
+            return Response.status(201).entity(respuesta).build();
+            //else
+            //return Response.status(2).build();
+        }catch (Exception e){
+            return Response.status(3).build();
+        }
+    }
+
 }
