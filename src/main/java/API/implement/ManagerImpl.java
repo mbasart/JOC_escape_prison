@@ -8,19 +8,20 @@ import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ManagerImpl implements Manager {
     private static ManagerImpl instance;
+
+    protected List<String> user;
+    protected List<String> game;
 
     //mostra informacio amb log4j
     final Logger log = Logger.getLogger(UserImpl.class);
 
     private ManagerImpl(){
-
+        this.user = new LinkedList<>();
+        this.game = new LinkedList<>();
     }
 
     public static Manager getInstance(){
@@ -508,5 +509,19 @@ public class ManagerImpl implements Manager {
             }
         }
         return resultat;
+    }
+
+
+    public void addUserLast(String user){
+        this.user.add(user);
+    }
+    public void addGameLast(String game){
+        this.game.add(game);
+    }
+    public String getUserLast(){
+        return this.user.get(this.user.size()-1);
+    }
+    public String getGameLast(){
+        return this.game.get(this.game.size()-1);
     }
 }

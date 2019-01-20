@@ -37,4 +37,10 @@ public interface Manager {
     Boolean checkUser(String userName);
     Boolean checkGameOfUser(String userName, String gameName);
     Boolean checkPartidaAcabada(String nameGame);
+
+
+    String getGameLast();
+    String getUserLast();
+    void addUserLast(String user);
+    void addGameLast(String game);
 }
