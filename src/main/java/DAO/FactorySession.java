@@ -26,8 +26,8 @@ public class FactorySession {
             String dbname = "joc_escape_prison";
             String username = "root";
             //String password = "password";
-            //String password = "Mazinger72";
-            String password = "M1r1tx1ll2797"; //posar contrasenya corresponent
+            String password = "Mazinger72";
+           // String password = "M1r1tx1ll2797"; //posar contrasenya corresponent
             //Class.forName(driver);
             conn =
                     //DriverManager.getConnection("jdbc:mysql://147.83.7.203/"+ dbname + "?user=" + username+ "&password="+password+"");
